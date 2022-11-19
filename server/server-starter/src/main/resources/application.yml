@@ -1,0 +1,82 @@
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+
+
+spring:
+  application:
+    name: face
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 3MB
+      max-request-size: 10MB
+      resolve-lazily: false
+  datasource:
+    name: mysql_test
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+    druid: #  配置参考 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE
+      #监控统计拦截的filters
+      filters: "stat,mergeStat"
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      #基本属性
+      url: jdbc:mysql://mysql.ainobug.com:50002/face?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: lemon
+      password: cslg@05126585
+      #配置初始化大小/最小/最大
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      #获取连接等待超时时间
+      max-wait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存的时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      connect-properties:
+        "druid.stat.slowSqlMillis": 5000
+      stat-view-servlet:  # 查看druid监控页面 http://localhost:8570/druid/index.html
+        enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 16379
+    password: jin@6585
+    database: 1
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 10000
+        max-idle: 8
+        min-idle: 0
+      shutdown-timeout: 100
+    timeout: 5000
+
+mybatis-plus:
+  # xml
+  mapper-locations: classpath*:mapping/*.xml  #classpath* scanning multiple jar
+  # 实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.abbkit.face
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#--------------------------- blog service  start
+abbkit:
+  module:
+    index:
+      filePath:
+      docsPath:
+    lemon:
+      akFilePath:
+#--------------------------- blog service  end
