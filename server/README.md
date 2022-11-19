@@ -1,5 +1,5 @@
 # blog
 
 
-docker build  -t abbkit:0.0.1 .
+docker build --network=abbkit -t abbkit:0.0.1 .
 
