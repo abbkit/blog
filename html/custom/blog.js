@@ -401,7 +401,7 @@
             }
 
             var fn=function (result) {
-                if(result.status=='SUCCESS'){
+                if(result.code==0){
                     success(result);
                 }else {
                     if(error) error(result);
