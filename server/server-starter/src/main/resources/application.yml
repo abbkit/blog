@@ -25,7 +25,7 @@ spring:
       filters: "stat,mergeStat"
       driver-class-name: com.mysql.cj.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://mysql.ainobug.com:50002/face?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://mysql.ainobug.com:50002/dataio?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: lemon
       password: cslg@05126585
       #配置初始化大小/最小/最大
@@ -75,8 +75,9 @@ mybatis-plus:
 abbkit:
   module:
     index:
-      filePath:
-      docsPath:
+      filePath: D:/index-out  #文件索引Lucene数据的存储目录
+      docsPath: D:/J/git/blog/html #需要检索的文件目录
     lemon:
-      akFilePath:
+      akFilePath: d:/ak
+      authKey: '{"J": "J"}'  #@Value的注入只能写在一行 #{${property}}
 #--------------------------- blog service  end

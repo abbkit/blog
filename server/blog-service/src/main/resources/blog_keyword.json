@@ -1,0 +1,40 @@
+{
+  "ope": "admin_put_table",
+  "cert": null,
+  "engine": "HBASE",
+  "tableMeta": {
+    "schema": "cold",
+    "tableName": "blog_keyword",
+    "desc": "some keyword for searching in the blog site",
+    "owner": "J",
+    "sync": "N",
+    "limitCount": -1,
+    "latestSyncTime": 1620824655200,
+    "disabled": "N",
+    "index": "Y",
+    "latestIndexTime": 1620824655200,
+    "count": 0,
+    "syncCount": 0,
+    "ttl": 0,
+    "properties": null,
+    "engine": "HBASE"
+  },
+  "columnMetas": [
+    {
+      "columnName": "lemonRowTime",
+      "type": "date",
+      "schema": "cold",
+      "tableName": "blog_keyword",
+      "desc": "lemon row time",
+      "length": 20
+    },
+    {
+      "columnName": "switch",
+      "type": "boolean",
+      "schema": "cold",
+      "tableName": "blog_keyword",
+      "desc": "whether applying the keyword or not",
+      "length": 0
+    }
+  ]
+}

@@ -56,8 +56,8 @@ public class CardController {
 
 
     @ResponseBody
-    @RequestMapping(path="/row",method=RequestMethod.GET)
-    public ResponseModel row( String id) throws Exception{
+    @RequestMapping(path="/get",method=RequestMethod.GET)
+    public ResponseModel get( Long id) throws Exception{
         CardEntity record= cardService.getById( id);
         return ResponseModel.newSuccess(record);
     }

@@ -7,8 +7,6 @@ import com.abbkit.module.cluster.ak.master.auth.AKFromStreamGetter;
 import com.abbkit.module.cluster.cert.SignCert;
 import com.abbkit.project.blog.BlogCons;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,11 +20,10 @@ import java.util.Map;
 @RestController
 @RequestMapping(BlogCons.PATH_PREFIX+"/cert")
 public class CertController {
-
-    private static final Logger LOGGER= LoggerFactory.getLogger(CertController.class);
     @Value("${abbkit.module.lemon.akFilePath}")
     private String akFilePath;
 
+    @Value("#{${abbkit.module.lemon.authKey}}")
     private Map<String,String> authMap;
 
 
@@ -38,9 +35,8 @@ public class CertController {
     public ResponseModel auth(@RequestParam("userName") String userName,
                              @RequestParam("password") String password
                              )throws Exception{
-        String key=userName+":"+password;
-        LOGGER.info(key+" , lemon key try to be authorized.");
-        if(authMap.containsKey(key)){
+        log.info(userName+" , user try to be authorized.");
+        if(authMap.containsKey(userName) &&password.equals(authMap.get(userName))){
 
             String ak=new AKFromStreamGetter(new FileInputStream(akFilePath)).ak();
             CertGenerate certGenerate=new CertWithDays(30);

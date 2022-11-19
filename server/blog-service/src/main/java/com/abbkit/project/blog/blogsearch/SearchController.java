@@ -81,7 +81,7 @@ public class SearchController {
             return ResponseModel.newSuccess(Collections.EMPTY_LIST);
 
         List<FileDoc> docs=search.search("contents",query,100,true);
-        docs.forEach(doc -> doc.setUri(doc.uri().replace("\\","/").replace(docsPath,"http://ainobug.com")));
+        docs.forEach(doc -> doc.setUri(doc.uri().replace("\\","/").replace(docsPath,"http://abbkit.com")));
         return ResponseModel.newSuccess(docs);
 
     }

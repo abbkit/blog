@@ -1,0 +1,72 @@
+{
+  "ope": "admin_put_table",
+  "cert": null,
+  "engine": "HBASE",
+  "tableMeta": {
+    "schema": "hot",
+    "tableName": "blog_node",
+    "desc": "blog_node",
+    "owner": "J",
+    "sync": "Y",
+    "limitCount": -1,
+    "latestSyncTime": 1620861542360,
+    "disabled": "N",
+    "index": "Y",
+    "latestIndexTime": 1620824762065,
+    "count": 0,
+    "syncCount": 0,
+    "ttl": 0,
+    "properties": null,
+    "engine": "HBASE"
+  },
+  "columnMetas": [
+    {
+      "columnName": "accessTime",
+      "type": "date",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "access time",
+      "length": 0
+    },
+    {
+      "columnName": "browser",
+      "type": "string",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "browser info",
+      "length": 255
+    },
+    {
+      "columnName": "holdTime",
+      "type": "int",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "how many time to hold",
+      "length": 0
+    },
+    {
+      "columnName": "ip",
+      "type": "string",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "ip",
+      "length": 255
+    },
+    {
+      "columnName": "lemonRowTime",
+      "type": "date",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "lemon row time",
+      "length": 20
+    },
+    {
+      "columnName": "userAgent",
+      "type": "string",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "user agent",
+      "length": 255
+    }
+  ]
+}

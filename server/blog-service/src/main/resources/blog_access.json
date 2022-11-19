@@ -1,0 +1,56 @@
+{
+  "ope": "admin_put_table",
+  "cert": null,
+  "engine": "HBASE",
+  "tableMeta": {
+    "schema": "cold",
+    "tableName": "blog_access",
+    "desc": "record all information accessing from WWW as more as possible",
+    "owner": "J",
+    "sync": "Y",
+    "limitCount": -1,
+    "latestSyncTime": 1620824503759,
+    "disabled": "N",
+    "index": "Y",
+    "latestIndexTime": 1620824503759,
+    "count": 0,
+    "syncCount": 0,
+    "ttl": 0,
+    "properties": null,
+    "engine": "HBASE"
+  },
+  "columnMetas": [
+    {
+      "columnName": "accessTime",
+      "type": "date",
+      "schema": "cold",
+      "tableName": "blog_access",
+      "desc": "access time",
+      "length": 0
+    },
+    {
+      "columnName": "holdTime",
+      "type": "int",
+      "schema": "cold",
+      "tableName": "blog_access",
+      "desc": "how many time to hold",
+      "length": 0
+    },
+    {
+      "columnName": "lemonRowTime",
+      "type": "date",
+      "schema": "cold",
+      "tableName": "blog_access",
+      "desc": "lemon row time",
+      "length": 20
+    },
+    {
+      "columnName": "track",
+      "type": "string",
+      "schema": "cold",
+      "tableName": "blog_access",
+      "desc": "track info",
+      "length": 255
+    }
+  ]
+}
