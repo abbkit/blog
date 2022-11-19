@@ -1,0 +1,8 @@
+(function (ainobug) {
+
+
+    
+
+
+
+})(window.ainobug);

@@ -1,0 +1,374 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>从OSS谈架构演进之路</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu">
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">我的业务需要什么</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">需要什么</a>
+                    </nav>
+                </nav>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-2">企业开发</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-2-1">企业业务难易度</a>
+                        <a class="nav-link ml-3 my-1" href="#item-2-2">我们需要什么方案</a>
+                        <a class="nav-link ml-3 my-1" href="#item-2-3">我们需要什么样的团队</a>
+                    </nav>
+                </nav>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-3">分布式数据存储系统OSS -On HBase&Mysql架构演进</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-3-1">设计理念</a>
+                        <a class="nav-link ml-3 my-1" href="#item-3-2">技术方案选择</a>
+                    </nav>
+                </nav>
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-1">我的业务需要什么</h1>
+              <h3 id="item-1-1">需要什么？</h3>
+              <p class="blog-text-indent">
+
+                  结构化数据可以通过RDBMS数据库，比如MYSQL，很好的处理，这么多年来MYSQL做了很好，事务处理（ACID）她能够办到，
+                  在<code>数据隔离性</code>的需求不是很明朗的情况下，通常<code>Read Committed</code>是比较好的处理方式。<br/>
+                  <div class="font-italic text-black-50 mark">
+                      ACID:原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）
+                      <ul>
+                          <li>读未提交（Read Uncommitted）</li>
+                          <li>读提交（Read Committed）</li>
+                          <li>可重复读（Repeated Read）</li>
+                          <li>串行化（Serializable）</li>
+                      </ul>
+                  </div>
+              但是当我们有成千上万、上亿、TB、PB级的数据的时候，而且我们对数据也没有那么严谨的需求，传统数据库在事务上耗费了太多资源，
+              此时我们需要在资源利用率上的找到平衡点，NO-SQL数据库站在了这个平衡点上。我们选择了HBASE作为我们的非结构化数据存储方案，基于如下理由
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>Hadoop生态，此前我们已经在Hadoop生态上花费了大半年的研究时间</li>
+                      <li>HBASE的高性能<code>随机读取</code>能力</li>
+                      <li>HBASE的HA高可用性线扩展能力理解起来比较简单</li>
+                      <li>可以通过HIVE无缝连接到其他的数据处理框架,比如<code>Impala, Hive On Spark</code></li>
+                      <li>通过<code>Phoenix</code>插件，可以使用LIKE-SQL操作</li>
+                  </ul>
+              </div>
+              刚刚上面也说了，我们可以通过<code>Phoenix</code>来操作HBASE，但是我认为<code>Phoenix</code>对HBASE的数据有侵入性，带来<code>数据膨胀</code>的问题（后面文章谈谈Phoenix的索引策略）。
+              </p>
+
+              <p>
+                  鉴于以上需求，以及作为一个多年软件开发者在面对时间无情地摧残下，自知机不可失，一切终将过去（coding的情怀在哪里，哈哈哈）。
+                  <span class="font-weight-bold font-italic mark">我们的目标：分布式数据存储系统OSS -On HBase&Mysql</span><br/>
+                  接下来我会尽我的能力，一起来看看项目的演变之路。哈哈哈，虽然本人没有做过非常高大上的项目，没有一个服务于成千上万万成员的项目，但是就像道家追求的阴阳相合之道，我们都能在这世间找到我们的立足点。
+              </p>
+
+
+              <h1 id="item-2">企业开发</h1>
+              <h3 id="item-2-1">企业业务难易度？</h3>
+              <p class="blog-text-indent">
+                  一般企业业务都是处理企业生产生活中的运作流程，个人感觉可以从<span class="font-weight-bold mark">“业务流程的复杂度”</span>来区难易度。
+              </p>
+              <h3 id="item-2-2">我们需要什么方案？</h3>
+              <p class="blog-text-indent">
+                  选择什么样的方案，需要看你处理哪些种类的业务，以及考虑业务的受众多少。我们从以下几种情况来分析
+                  <h5>1) 简单、复杂业务，受众很少</h5>
+              <p>直接上传统的已经非常成熟的J2EE方案，在这里一般我们就是 Spring + MyBatis , 已经能够处理的非常好了。 在这方案里，没什么好讲的，都是些常规性操作。</p>
+                  <h5>2）简单、复杂业务，受众很多</h5>
+              <p>直接上传统的已经非常成熟的J2EE方案，在这里一般我们就是 Spring + MyBatis , 已经能够处理的非常好了。 在这方案里，没什么好讲的，都是些常规性操作。
+                  在这种情形下你可能需要考虑<span class="font-weight-bold">集群部署来应对常规的大批量并发访问</span></p>
+                  <h5>3）复杂业务下的模块化构建</h5>
+              <p>如果你的业务足够复杂，我相信你急需一种方法来理清你的业务逻辑，通常在此情况下，模块化都是比较好的处理策略。但请你不要尝试微服务化方案，合适就好嘛。</p>
+                  <h5>4）微服务技术架构</h5>
+              <p>如果你的确需要采用微服务的技术架构来应对你的业务挑战，我们需要考虑如下几点
+              <ul>
+                  <li>你的业务边界定义的合适吗？</li>
+                  <li>需要多少个节点来应对并发访问？</li>
+                  <li>你定义的边界交换接口是幂等的吗，考虑了不可用吗？（服务降级策略）</li>
+                  <li>更多的关注业务链在技术上的有效、通畅</li>
+                  <li>评估微服务下业务能力的提升</li>
+              </ul></p>
+                  <h5>5）中间件开发</h5>
+              <p>中间件开发需要更多的理解软件系统的构成，你需要更深入的理解另外一个中间件，比如某个存储中间件，又或者是网络通信、协议转换、设计模式、软件发布规范等</p>
+              </p>
+              <h3 id="item-2-3">我们需要什么样的团队？</h3>
+              <p class="blog-text-indent">
+                  无论什么样的方案，我们都需要团队拥有严谨的逻辑，在业务上能够快速的应变。我们立足于<span class="font-weight-bold mark">技术是服务于业务</span>的原则，
+                  跟着业务的发展来选择合适的技术支撑。
+              </p>
+
+              <h1 id="item-3">分布式数据存储系统OSS -On HBase&Mysql架构演进</h1>
+              <h3 id="item-3-1">设计理念</h3>
+              <p class="blog-text-indent">
+
+
+              <h4>统一数据结构</h4>
+              <p>
+                  <table class="table table-bordered" >
+                    <thead class="table-dark">
+                    <tr><td>参数</td><td>备注</td><td>值</td><td>值备注</td></tr>
+                    </thead>
+                    <tbody>
+
+                      <tr style="">
+                          <td>ope</td><td>操作类型</td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td rowspan="3">table</td><td rowspan="3">操作表的名称</td><td>insert</td><td>插入</td>
+                      </tr>
+                      <tr>
+                          <td>update</td><td>更新</td>
+                      </tr>
+                      <tr>
+                          <td>delete_row</td><td>删除</td>
+                      </tr>
+                      <tr>
+                          <td>cert</td><td>操作凭证</td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td rowspan="8">condition</td><td rowspan="8">操作条件</td><td>and</td><td>与</td>
+                      </tr>
+                      <tr>
+                          <td>or</td><td>或</td>
+                      </tr>
+                      <tr>
+                          <td>eq</td><td>等于</td>
+                      </tr>
+                      <tr>
+                          <td>ge</td><td>大于等于</td>
+                      </tr>
+                      <tr>
+                          <td>gt</td><td>大于</td>
+                      </tr>
+                      <tr>
+                          <td>lt</td><td>小于</td>
+                      </tr>
+                      <tr>
+                          <td>le</td><td>小于等于</td>
+                      </tr>
+                      <tr>
+                          <td>lk</td><td>相似</td>
+                      </tr>
+                      <tr>
+                          <td>result</td><td>返回的字段和字段类型</td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td rowspan="6">type</td><td rowspan="6">字段数据类型</td><td>string</td><td>字符类型</td>
+                      </tr>
+                      <tr>
+                          <td>int</td><td>整型</td>
+                      </tr>
+                      <tr>
+                          <td>long</td><td>长整型</td>
+                      </tr>
+                      <tr>
+                          <td>double</td><td>浮点型</td>
+                      </tr>
+                      <tr>
+                          <td>boolean</td><td>布尔型</td>
+                      </tr>
+                      <tr>
+                          <td>date</td><td>日期类型，值为长整型（long）</td>
+                      </tr>
+                  </tbody>
+                </table>
+
+              </p>
+
+              <h4>数据存储引擎</h4>
+              <p class="blog-text-indent">
+                  存储引擎以插件的形式在引擎中心（Engine Hub）注册，Engine Hub负责引擎生命周期的管理。引擎选择器根据不同的存储要求选择相应的存储引擎。
+              <div class="mark">
+              <ul>
+                  <li>引擎中心（Engine Hub）</li>
+                  <li>引擎选择器</li>
+                  <li>插件化开发</li>
+              </ul>
+
+              </div>
+
+              </p>
+
+              <h4>抽象数据流</h4>
+              <p class="blog-text-indent">
+                  数据的进进出出抽象出数据流的概念，与此相应的我们有个<code>数据管道</code>的设计，数据管道设计成单向的，双向管道采用通过包装单向管道的方式。
+                  在管道中流动的数据通过<code>数据转换器(正向/逆向)</code>转换成统一的数据结构（OSS）/相应的数据结构（外部数据源）。根据管道不同的数据源，我们把管道分为多种形式
+              <ul>
+                  <li>RDBMS管道</li>
+                  <li>KAFKA管道</li>
+                  <li>MQ管道</li>
+                  <li>File管道</li>
+              </ul>
+              <div class="mark">
+              <ul>
+                  <li>数据管道，单向和双向</li>
+                  <li>数据管道的种类</li>
+                  <li>数据转换器，包括正向转换器和逆向转换器</li>
+              </ul>
+          </div>
+
+
+
+              </p>
+
+              <h4>序列化/反序列化</h4>
+              <p class="blog-text-indent">
+                  使用可读性更好的JSON序列化方案，有如下几点优势和劣势
+              <div class="row">
+                  <div class="col-6">
+                      <h5>优势</h5>
+                      <ul>
+                          <li>结构良好</li>
+                          <li>有效数据占比高，适合网络传输</li>
+                          <li>数据结构可验证，预发现错误</li>
+                          <li>适用面广，比如目前有的数据库也支持JSON结构了</li>
+                      </ul>
+                  </div>
+                  <div class="col-6">
+                      <h5>劣势</h5>
+                      <ul>
+                          <li>序列化/反序列化耗时</li>
+                          <li>结构不紧凑</li>
+                          <li>元数据信息过多</li>
+                      </ul>
+                  </div>
+                  <div class="font-italic text-black-50 mark">
+                      可以参考其他的方案，比如 <code class="font-weight-bold">Kryo XML </code>
+                  </div>
+              </div>
+
+              </p>
+
+              <h4>分布式技术架构-Master Slave设计</h4>
+              <p class="blog-text-indent">
+                  鉴于Hadoop生态在线性扩展上良好的支持，HBASE架构在数据上的清晰处理，因此我们这个项目也采用类似HBASE的架构设计。为做到此架构下的伸缩性，保证如下几点
+              <ul>
+                  <li>Worker节点状态保证Stateless</li>
+              Stateless能够保证worker节点永远可以fail-fast，且对整个集群的状态不会有影响。鉴于此设计目的，我们需要保证在Worker节点上处理的任务是支持stateless的
+                  <li>Master保证HA</li>
+              通过Zookeeper的leader latch机制，我们能够启动一个Backup的Master来支撑HA
+                  <li>Backup Master保证和Master数据的同步以及状态一致的机制</li>
+              数据同步我们采用如下几个机制来保证<br/>
+              1）同步点记录在ZK中<br/>
+              2）如果Master有些数据在ZK中不能记录，我们通过<span class="font-weight-bold">“有序同步记录”</span>的方式，
+              在Active-Backup之间同步，通过序列号保证同步状态一致
+
+              </ul>
+
+              </p>
+
+              <h4>授权、认证</h4>
+              <p class="blog-text-indent">
+                  这里我们摒弃中心化存储策略，比如<code>Redis session共享</code>，采用<code>JWT</code>的方式来处理请求的授权、认证问题。
+              </p>
+
+              </p>
+              <h3 id="item-3-2">技术方案选择</h3>
+              <p class="blog-text-indent">
+
+                  <h4>数据库访问方式</h4>
+                    <p>Q：我们需要连接不同种类的数据库，不管MYSQL \ MSSQL\ORACLE\PG ,因此我们需要统一的访问方式</p>
+                    <p>
+                        A：因为我们用的JAVA语言开发的，所以Java Database Connectivity是我们最合适的选择
+                    </p>
+                  <h4>是否需要Spring</h4>
+                  <p>Q：我们是否需要使用Spring Framework来支持我们的开发</p>
+                  <p>A：让我们来看看Spring框架能提供给我们什么，
+                  <ul>
+                      <li>IOC</li>
+                      <li>DI</li>
+                      <li>AOP</li>
+                      <li>Spring Integrate With Others,Such As ORM,JMS</li>
+                  </ul>
+
+              <ul style="list-style-type: decimal">
+                  <li>我们项目中会大量使用单列，看起来Spring可以帮我们处理</li>
+                  <li>项目中会访问数据库，Spring AOP 引出来的Transaction Manager会保证我们访问数据库时的ACID</li>
+                  <li>IOC/DI也能偶让我们脱离成员关系依赖 ，能更好的面向接口、抽象类开发</li>
+              </ul>
+              <!--1）我们项目中会大量使用单列，看起来Spring可以帮我们处理 <br/>-->
+                  <!--2）项目中会访问数据库，Spring AOP 引出来的Transaction Manager会保证我们访问数据库时的ACID<br/>-->
+                  <!--3）IOC/DI也能偶让我们脱离成员关系依赖 ，能更好的面向接口、抽象类开发<br/>-->
+              然而我并不想引入Spring，虽然有那些好处，但是我们需要权衡资源利用效率的问题。鉴于以下几点
+              <ul style="list-style-type: decimal">
+                  <li>我们的项目并不会面向接口、抽象类开发，或者更准确的说，我们并不会有接口的多种实现，虽然整个项目是<span>接口第一</span> </li>
+                  <li>我们需要在单列中大量的初始化上下文，使用spring 需要factory机制，不太方便</li>
+                  <li>我们会有我们特定的工厂入口，这些工厂入口会在用户的集群配置文件中出现，使用spring初始化起来不方便</li>
+                  <li>程序引导主线程目前是单线程，过长的引导时间导致了在上下文时间里面不能完成初始化，后面需要改成多线程并行引导，不太好控制spring context的初始化</li>
+                  <li>引入的jar包太多了额</li>
+              </ul>
+                  <!--1）我们的项目并不会面向接口、抽象类开发，或者更准确的说，我们并不会有接口的多种实现，虽然整个项目是<span>接口第一</span> <br/>-->
+                  <!--2) 我们需要在单列中大量的初始化上下文，使用spring 需要factory机制，不太方便<br/>-->
+                  <!--3）我们会有我们特定的工厂入口，这些工厂入口会在用户的集群配置文件中出现，使用spring初始化起来不方便<br/>-->
+                  <!--4）程序引导主线程目前是单线程，过长的引导时间导致了在上下文时间里面不能完成初始化，后面需要改成多线程并行引导，不太好控制spring context的初始化<br/>-->
+                  <!--5）引入的jar包太多了额-->
+
+              <span class="mark h3">aha，所以我们不需要<del>Spring</del></span>
+
+                  </p>
+
+                 <h4>网络组件框架</h4>
+                 <p>Q：提供TCP/HTTP协议的网络框架组件的选择</p>
+                 <p>A：基于我们的“统一数据模型”和“序列化/反序列化组件”,我们并不需要过多的关注HTTP协议包含的整体内容，比如并不需要关注URL带参数的GET请求等，
+                     而且后期我们可能会从HTTP协议转到更底层的TCP协议上，所以我们放弃Servlet而选择Netty </p>
+
+              <h4></h4>
+
+              </p>
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+
+

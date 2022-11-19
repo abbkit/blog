@@ -1,0 +1,322 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>SCC</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu">
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+
+                    <a class="nav-link" href="#item-7">Spring Cloud Utility</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-7-1">maven</a>
+                        <a class="nav-link ml-3 my-1" href="#item-7-2">Config</a>
+                        <a class="nav-link ml-3 my-1" href="#item-7-3">OAuth2+Security</a>
+
+                    </nav>
+                    <a class="nav-link" href="#item-8">Standalone Sample</a>
+                    <nav class="nav nav-pills flex-column">
+
+                        <a class="nav-link ml-3 my-1" href="#item-8-1">Structure</a>
+                        <a class="nav-link ml-3 my-1" href="#item-8-2">Build</a>
+                        <a class="nav-link ml-3 my-1" href="#item-8-3">Env</a>
+                        <a class="nav-link ml-3 my-1" href="#item-8-4">Deploy</a>
+
+                    </nav>
+
+
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-7">Spring Cloud Utility</h1>
+              <h2 id="item-7-1">maven</h2>
+              <p>
+                  配置<a href="file/settings.xml" target="_blank">maven settings</a>文件,profile定义下面三种
+                  <ol>
+                      <li>dev</li>
+                      <li>sit</li>
+                      <li>prd</li>
+                  </ol>
+              编译项目的时候，执行 <code> mvn clean compile -Dmaven.test.skip=true -Pdev/sit/prd</code>
+
+              <div class="font-italic text-black-50 mark">
+                  配置阿里云私有仓库<a href="https://repomanage.rdc.aliyun.com/my/repo" target="_blank">https://repomanage.rdc.aliyun.com/my/repo</a><br/>
+                  基础库<code>libeme.modules.*.*</code>相关的JAR包都上传到此仓库了,示例<br/>
+                  <pre>
+                      &lt;dependency>
+                          &lt;groupId>libme.modules.xstream&lt;/groupId>
+                          &lt;artifactId>cpp-xstream-kernel&lt;/artifactId>
+                          &lt;version>${revision}&lt;/version>
+                      &lt;/dependency>
+                  revision:3.0.1
+                  </pre>
+              </div>
+
+
+              </p>
+
+              <h2 id="item-7-2">Config</h2>
+              <h3>Server定义检索优先级目录</h3>
+
+              一般情况下，我们对配置文件有如下的需求：
+              <ul>
+                  <li>一个全局配置，可以被所有的模块使用</li>
+                  <li>一个全局配置，可以被某一个特定模块的不同环境使用</li>
+                  <li>模块的特定环境配置</li>
+              </ul>
+              <img src="file/config.png" class="img-scale-size"><br/>
+
+              通过  spring.cloud.config.server.native.search-locations 或者
+              spring.cloud.config.server.git.search-paths 定义多个扫描目录（多个目录使用逗号','隔开），
+
+              <div class="font-italic text-black-50 mark">
+              Note:目录列表中，越在后面目录里面的配置信息有更高的优先级，覆盖其之前目录中的配置信息。示例<br/>
+                  <code>spring.cloud.config.server.native.search-locations : file:C:\java_\git\spring-modules\scc\scc-config-server\src\main\resources\config,
+                      file:C:\java_\git\spring-modules\scc\scc-config-server\src\main\resources\config\{application}\{profile}</code>
+              </div>
+
+              <h3>Client配置文件的检索</h3>
+              <h4>仅有一个配置文件</h4>
+              <code>application name</code>在spring cloud config中用来定位获取哪个配置文件，如果你的配置文件只有一个，不需要配置任何信息，
+              只要在config server文件检索目录中有相应的文件就可以了，比如
+              <div class="font-italic text-black-50 mark">
+                如果定义<code>spring.application.name : module-demo</code> ,在config server的search目录中，有<code>module-demo[-{profile}].yml</code>文件就可以了。
+              </div>
+              <h4>多个配置文件</h4>
+              如果有多个配置文件，配置<code>spring.cloud.config.name</code> ,多个名字使用逗号隔开。<br/>
+              比如<code>spring.cloud.config.name : application-cfg,application-cpp,application,application-extension,application-scc,module-demo </code>
+              <span class="text-red">spring.application.name定义的值必须出现在最后</span>。
+
+
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          Eureka出现UNKOWN的节点
+                      </div>
+                      <div class="blog-a">
+                          <code>eureka.client.healthcheck.enabled: true</code> 必须配置到非bootstrap.yml文件中，否则节点的状态可能是UNKOWN。
+                      </div>
+                  </div>
+              </div>
+
+              <h2 id="item-7-3">OAuth2+Security</h2>
+              OAuth2 参与的角色
+              <ul>
+                  <li>用户（user）</li>
+                  <li>客户端（client）</li>
+                  <li>授权服务器（authorize server）</li>
+                  <li>资源服务器（resource server）</li>
+              </ul>
+
+              <h3>Spring Security的认证流程，非OAuth2</h3>
+              <ol>
+                  <li>org.springframework.security.web.context.SecurityContextPersistenceFilter</li>
+                  <li>org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
+                    <ol>
+                        <li>org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter</li>
+                        <li>org.springframework.security.<span class="text-red">oauth2</span>.client.filter.OAuth2ClientAuthenticationProcessingFilter
+                            <div class="font-italic text-black-50 mark">
+                            org.springframework.security.oauth2.client.OAuth2RestOperations 可以连接到authorize server获取认证信息
+                            </div>
+                        </li>
+                        <li>org.springframework.security.<span class="text-red">oauth2</span>.provider.client.ClientCredentialsTokenEndpointFilter
+                            <div class="font-italic text-black-50 mark">
+                                client_id ,client_secret参数出现在http请求中，<code>request.getParameter("client_id") request.getParameter("client_secret")</code>
+                            </div>
+
+
+                        </li>
+                    </ol>
+                  </li>
+                  <li>org.springframework.security.authentication.AuthenticationManager
+                    <ol>
+                        <li>org.springframework.security.<span class="text-red">oauth2</span>.provider.authentication.OAuth2AuthenticationManager
+                            <div class="font-italic text-black-50 mark">
+                                OAuth2认证使用这个
+                            </div>
+                        </li>
+                        <li>org.springframework.security.authentication.ProviderManager
+                            <div class="font-italic text-black-50 mark">
+                                普通认证使用这个
+                            </div>
+                        </li>
+                    </ol>
+                  </li>
+                  <li>org.springframework.security.web.access.ExceptionTranslationFilter</li>
+                  <li>org.springframework.security.web.access.intercept.FilterSecurityInterceptor</li>
+              </ol>
+
+              <span class="text-red">SecurityContextPersistenceFilter -> AbstractAuthenticationProcessingFilter -> ExceptionTranslationFilter -> FilterSecurityInterceptor</span>
+              <h3>OAuth2的认证经过两个流程</h3>
+              1. Spring Security 认证Client Id + Client Secret <br/>
+              2. Endpoint(org.springframework.security.oauth2.provider.endpoint.AbstractEndpoint)认证不同的授权类型,password,authorization_code,client_credentials,implicit,refresh_token<br/>
+              <ol>
+                  <li>org.springframework.security.oauth2.provider.endpoint.TokenEndpoint(<span class="text-red">/oauth/token</span>)</li>
+                  <li>org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint(<span class="text-red">/oauth/authorize</span>)</li>
+              </ol>
+              通过org.springframework.security.oauth2.provider.TokenGranter产生token
+              <ol>
+                  <li>org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter</li>
+                  <li>org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter</li>
+                  <li>org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter</li>
+                  <li>org.springframework.security.oauth2.provider.client.ClientCredentialsTokenGranter</li>
+                  <li>org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter</li>
+              </ol>
+              org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices(DefaultTokenServices)负责产生、存储token，至此oauth2 token的流程结束。
+
+
+              <h3>OAuth2 Client/Resource检测是否已认证的流程</h3>
+
+              这个类<code>org.springframework.security.web.FilterChainProxy</code>是非常关键的，其包装了所有的security filter(SecurityFilterChain)，
+              所有在HttpSecurity中配置的filter都会被包装到SecurityFilterChain中。
+
+              org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter用于Resource中OAuth2的认证,OAuth2AuthenticationProcessingFilter
+              在<code>org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer</code>中被初始化。<br/>
+
+              <span class="text-red">OAuth2AuthenticationProcessingFilter</span>会通过org.springframework.security.oauth2.provider.authentication.TokenExtractor（BearerTokenExtractor）
+              从HTTP请求头中获取Authentication信息
+              <div class="font-italic text-black-50 mark">
+              Authorization : Bearer eyJhbGc...
+              </div>
+              整个Filter的执行流程如下
+              <ol>
+                  <li>org.springframework.web.filter.CharacterEncodingFilter</li>
+                  <li>org.springframework.web.filter.HttpPutFormContentFilter</li>
+                  <li>org.springframework.web.filter.RequestContextFilter</li>
+
+                  <li>org.springframework.security.web.FilterChainProxy</li>
+                  ... <span class="text-red font-weight-bold">这部分是应用程序自定义的Filter</span>
+                  <li>org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter</li>
+
+              </ol>
+
+
+
+              <span class="text-red">
+                  HttpPutFormContentFilter -> ... -> FilterChainProxy{Security Filter Chain}  -> Custom Filter  -> End <br/>
+                  FilterChainProxy{Security Filter Chain} : SecurityContextPersistenceFilter ->  OAuth2AuthenticationProcessingFilter -> ExceptionTranslationFilter -> FilterSecurityInterceptor</span>
+
+              <h3>认证信息中断？</h3>
+              Relay a resource server downstream to other resource servers(让认证信息（Authorization头信息）从一个资源服务器传到下一个资源服务器中，避免认证信息中断)
+              <h4>Zuul Gateway</h4>
+
+
+              <h4>Feign Call</h4>
+
+              <code>org.springframework.cloud.security.oauth2.client.AccessTokenContextRelay</code> 从SecurityContext中复制 ‘access token’ 到OAuth2ClientContext中，
+              所以这边的<code>OAuth2ClientContext bean</code>需要是session scope或者request scope，不能是singleton scope
+
+
+
+
+              <div class="font-italic text-black-50 mark">
+<pre>
+Spring Condition Order :
+第一梯队如下：
+1.1. 扫描的Bean，包括直接扫描、自动配置中扫描、启用组件中扫描的Bean：
+即扫描标注了 @Controller @Service @Repository @Component 的类
+1.2. 直接的Java配置，即@SpringBootApplication直接覆盖的包下用@Bean注册的Bean
+
+第二梯队如下：
+2.1. 启用组件中的Java配置注册的Bean，即在@Enable...引入、而且使用@Bean注册的Bean
+
+第三梯队如下：
+3.1. 自动配置中的Java配置注册的Bean，即在自动配置中引入、而且使用@Bean注册的Bean
+</pre>
+              </div>
+
+
+              <h1 id="item-8">Standalone Sample</h1>
+              单体应用，不使用spring boot plugin下的部署方式
+              <div class="font-italic text-black-50 mark">
+              使用 Spring Boot Plugin : -> <span class="text-red">mvn clean package spring-boot:repackage -Pprd -Dmaven.test.skip=true</span>
+              </div>
+              <h2 id="item-8-1">Structure</h2>
+              <p>
+                  <img src="img/app-structure.png" class="img-scale-size"><br/>
+                  项目目录结构类似(如上)，你也可以下载目录示例<a href="file/app-tar-template-0.0.1-SNAPSHOT-bin.zip" target="_blank">app-tar-template-0.0.1-SNAPSHOT-bin.zip</a>
+              </p>
+              <h2 id="item-8-2">Build</h2>
+              <ol>
+                  <li>修改app-env.bat/app-env.sh中的APP_MAIN_CLASS、APP_MAIN_NAME为你的java main class</li>
+                  <li>mvn clean package -Dmaven.test.skip=true -Pprd 在target目录中生成一个tar包</li>
+              </ol>
+              <h2 id="item-8-3">Env</h2>
+              <ol>
+                  <li>配置JAVA_HOME</li>
+                  <li>jar命令可以被使用 （windows环境会使用这个命令）</li>
+              </ol>
+
+              <h2 id="item-8-4">Deploy</h2>
+              <ol>
+                  <li>解压缩tar包</li>
+                  <li>修改etc目录中的相应的配置文件<br/>
+                      (1).Windows: 修改app-env.bat文件中的 “APP_HOME” 变量指向你的运行时目录<br/>
+                      (2).Linux: 修改app-env.sh文件中的 “APP_HOME” 变量指向你的运行时目录
+                  </li>
+              </ol>
+              在Windows下，运行 <code>app-start.bat</code>启动程序，运行 <code>app-stop.bat</code> 停止程序；<br/>
+              在Linux下，运行shell指令<code>app-daemon.sh start app</code>启动程序，运行<code>app-daemon.sh stop app</code>停止程序。
+              <div class="font-italic text-black-50 mark">
+                  在Windows上可能会出现“控制台窗口主程序”的进程，注意停止程序不能杀掉这个进程，需要手动杀掉的。
+                  <img src="img/app-start-windows.png" class="">
+              </div>
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

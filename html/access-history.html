@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/custom/blog.css" >
+    <title>Access/History</title>
+    <style type="text/css">
+
+      li .badge{
+        font-weight: inherit;
+      }
+
+    </style>
+  </head>
+  <body>
+
+  <blogHeader data-item=""></blogHeader>
+
+      <main class="blog-main">
+
+        <div class="list-group" id="latestItemDiv">
+
+          <!--<a href="#" class="list-group-item list-group-item-action active">-->
+          <!--<div class="d-flex w-100 justify-content-between">-->
+          <!--<h5 class="mb-1">List group item heading</h5>-->
+          <!--<small>3 days ago</small>-->
+          <!--</div>-->
+          <!--<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
+          <!--<small>Donec id elit non mi porta.</small>-->
+          <!--</a>-->
+
+        </div>
+
+
+        <div id="historyDiv" style="display: none">
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="#" role="back" target-hide="historyDiv" target-show="latestItemDiv">Back</a>
+            <span id="nodeInfo"></span>
+          </div>
+
+          <ul class="list-group list-group-flush" id="historyItemUl">
+            <!--<li class="list-group-item d-flex justify-content-between align-items-center">-->
+              <!--Cras justo odio-->
+              <!--<span class="badge badge-primary badge-pill">14</span>-->
+            <!--</li>-->
+          </ul>
+        </div>
+
+
+
+
+
+  
+      </main>
+
+    <blogFooter></blogFooter>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script type="application/javascript">
+
+  $(function () {
+
+      function history(selected) {
+          $.blogs.get($.blogConfig.apiUrl+"/access/history",{
+              node:selected
+          },function (result) {
+
+              $('#latestItemDiv').hide();
+              $('#historyDiv').show();
+              $('#historyItemUl').empty();
+
+              for(var i=0;i<result.data.length;i++){
+                  var itemData=result.data[i];
+                  var itemDom='<li class="list-group-item d-flex justify-content-between align-items-center">'
+                          +itemData.track
+                      +'<span class="badge badge-pill">'+$.blogs.formatDate(itemData.accessTime)+'</span>'
+                      +'</li>';
+                  $('#historyItemUl').append(itemDom);
+              }
+
+
+          })
+
+
+
+      }
+
+
+      $.blogs.get($.blogConfig.apiUrl+"/access/latest",function (result) {
+
+          for(var i=0;i<result.data.length;i++){
+              var itemData=result.data[i];
+              var itemDom='<a href="#" class="list-group-item list-group-item-action" >'
+                  +'<div class="d-flex w-100 justify-content-between">'
+                  +'<h5 class="mb-1">'+itemData.lemonRowKey+'</h5>'
+                  +'<small>'+$.blogs.formatDate(itemData.accessTime)+'</small>'
+                  +'</div>'
+                  +'<p class="mb-1">'+itemData.userAgent+'</p>'
+                  +'<small>'+itemData.browser+'</small>'
+                  +'</a>';
+
+              var $itemDom=$(itemDom);
+              $itemDom.data('node',itemData);
+              $('#latestItemDiv').append($itemDom);
+          }
+
+          $('#latestItemDiv a').on('click',function () {
+             var node=$(this).data('node');
+              history(node.lemonRowKey);
+             $('#nodeInfo').html(node.lemonRowKey+" , "+node.browser);
+          });
+
+
+
+
+
+
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  })
+
+
+</script>
+

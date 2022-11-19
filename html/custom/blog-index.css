@@ -1,0 +1,147 @@
+
+.index-main{
+    max-width: none !important;
+    padding: 0 0 1rem 0 !important;
+}
+
+.index-broadcast{
+    height: 60px;
+    line-height: 45px;
+}
+
+.index-broadcast a{
+    color: #1b1e21;
+    font-weight: 700 !important;
+    font-size: 1.5rem;
+}
+
+.index-broadcast ul li{
+    padding-right: 60px;
+}
+
+
+.container-search{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    height: 20rem;
+    width: 100%;
+    padding: .25rem;
+    border: 1px solid gray
+}
+
+.showing-area > div{
+    padding: 5% 0 ;
+    
+}
+
+.showing-area{
+
+    background-image: url(/img/index-showing.jpg);
+    min-height: calc(100vh - 90px - 120px);
+    background-repeat: no-repeat;
+    background-size: cover;    
+}
+
+.showing-area-content{
+    vertical-align: middle;
+}
+
+.input-search{
+    border-radius: 10rem;
+    background: #fff;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.15);
+    padding: 0.1rem;
+}
+
+.input-search input{
+    width: 100%; 
+    height: 100%;
+    border: 0;
+}
+
+.input-search input:focus{
+    outline: 0;
+}
+
+.input-search button{
+    background: #4E66F8;
+    color: #ffffff;
+    border-radius: 10rem;
+    border-color: #1131f6;
+    width: 100%;
+}
+
+.showing-area p{
+    color: #ffffff;
+    font-size: 1.5rem;
+    line-height: 5rem;
+}
+
+@media (max-width: 768px) {
+    .input-search {
+        padding: 1rem 0rem;
+        border-radius: 2rem;
+    }
+    .input-search > div:first-child{
+        margin: 1rem 0;
+        line-height: 3rem;
+    }
+
+    .input-search input{
+
+        border-bottom: .1rem inset #e9ecef;
+
+    }
+
+    .index .blog-main{
+        margin-top: -.3rem !important; 
+    }
+
+}
+
+@media (max-width: 576px) {
+    
+    .showing-area{
+        background-image: linear-gradient( to bottom, rgb(6 79 158),#ffffff );
+        /* background-image: unset; */
+        min-height: calc(100vh - 90px - 320px);
+    }
+
+    blogHeader .blog-nav-custom{
+        background: rgba(6 79 158) !important;
+    }
+
+}
+
+
+.showing-list{
+
+    padding:.3rem 0 0 0 ;
+
+}
+
+.showing-list > .row{
+    margin: 0 0;
+}
+
+.showing-guide{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: .5rem 1rem 3rem 1rem;
+    width: 100%;
+}
+
+.showing-guide > div{
+    width: 5rem;
+    
+}
+
+
+footer{
+    padding-bottom: 0.5rem;
+}
+
+
+

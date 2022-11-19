@@ -1,0 +1,113 @@
+
+blogHeader{
+    height: 45px;
+    min-height: 56px;
+    display: inline-block;
+}
+
+blogHeader .blog-nav-custom{
+    background: #251307 !important;
+}
+
+blogHeader .blog-nav-custom ul li{
+    padding-left: 45px;
+}
+
+blogHeader .blog-nav-custom .blog-head-container{
+    max-width: 900px !important;
+
+}
+
+blogFooter{
+    color: #86868b !important;
+    background: #f5f5f7 !important;
+    text-align: center !important;
+    padding-top: 1rem !important;
+    padding-bottom: 2rem !important;
+    font-size: 0.9em;
+    width: 100%;
+    height: 90px;
+}
+
+blogFooter .contact{
+    padding-right: 1em;
+    padding-left: 1em;
+    border-right: 1px solid #d2d2d7;
+}
+blogFooter .contact:first-child{
+    padding-left: 0;
+}
+blogFooter .contact:last-child{
+    border-right:none;
+}
+
+blogFooter .level2{
+    margin-top: 0.2em;
+}
+
+blogFooter .copyright{
+    padding-right: 3em;
+}
+
+blogFooter a{
+    font-size: 0.9em;
+}
+
+
+.blog-main {
+    max-width: 1300px;
+    padding: 1rem  3rem !important;
+    margin-right: auto;
+    margin-left: auto;
+
+    min-height: calc(100vh - 135px);
+}
+
+@media (max-width: 992px) {
+    .blog-main {
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+    }
+}
+
+.blog-msg{
+    max-width: 1300px;
+    font-size: 80%;
+    color: #dc3545;
+    display: block !important;
+    line-height: 2rem;
+}
+
+.blog-msg .close{
+    float: none;
+}
+
+
+
+
+
+
+.blog-main a.blog-record{
+    color: #343a40 !important;
+    font-size: 1.25rem;
+    /*text-decoration: underline;*/
+}
+.blog-main span.blog-review-item{
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

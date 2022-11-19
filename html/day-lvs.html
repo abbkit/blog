@@ -1,0 +1,173 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>LVS负载均衡</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu">
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">Nginx</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">Script</a>
+                    </nav>
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-1">Nginx</h1>
+              <h3 id="item-1-1">Script</h3>
+
+              <p>
+                  http > underscores_in_headers  #head可以包含下划线<br/>
+                  http > client_max_body_size <br/>
+                  <code>underscores_in_headers on; client_max_body_size   1000m;</code>
+              </p>
+
+              <pre>
+# 待选服务器列表
+upstream oss{
+    # 轮询
+    server one.3cgg.rec:10091 max_fails=3 fail_timeout=10s;
+    server two.3cgg.rec:10091 max_fails=3 fail_timeout=10s;
+    server three.3cgg.rec:10091 max_fails=3 fail_timeout=10s;
+    keepalive_timeout 180s;
+    keepalive 32;
+}
+
+server {
+    listen       8000 default_server;
+    server_name  _;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+
+    location / {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forward-Proto http;
+        proxy_set_header X-Nginx-Proxy true;
+        proxy_temp_file_write_size 64k;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 180s;
+        proxy_read_timeout 180s;
+        proxy_busy_buffers_size 64k;
+        proxy_redirect off;
+        proxy_request_buffering off;
+        proxy_buffering off; #这个参数用来控制是否打开后端响应内容的缓冲区，如果这个设置为off，那么proxy_buffers和proxy_busy_buffers_size这两个指令将会失效。 但是无论proxy_buffering是否开启，对proxy_buffer_size都是生效的。
+        proxy_buffer_size 64k; #该指令设置缓冲区大小,从代理后端服务器取得的第一部分的响应内容,会放到这里.小的响应header通常位于这部分响应内容里边. 默认来说,该缓冲区大小等于指令 proxy_buffers所设置的;但是,你可以把它设置得更小.
+        proxy_buffers 16 32K; #使用proxy_max_temp_file_size指令关闭磁盘缓冲.
+        proxy_pass http://oss;
+    }
+
+}
+
+              </pre>
+
+
+<pre>
+    ####TCP ::::
+stream{
+    upstream tcpmysql{
+        hash $remote_addr consistent;
+        server  oss-mysql.mysql.rds.aliyuncs.com:3306 max_fails=3 fail_timeout=10s;
+    }
+    server{
+        listen 50001;
+	listen       [::]:50001 ;
+        proxy_connect_timeout 20s;
+        proxy_timeout 5m;
+        proxy_pass tcpmysql;
+    }
+}
+
+
+</pre>
+
+
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <p class="blog-q">
+                          使用nginx作为负载的时候，如何跟踪来源IP
+                      </p>
+                      <p class="blog-a">
+                          通过<code>X-Forward-For</code>来跟踪源地址,X-Forward-For在HTTP请求头中
+                      </p>
+                      <div class="font-italic text-black-50 mark">
+<pre>
+  location /blog-api {
+    proxy_pass http://localhost:8989/blog-api;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forward-For $remote_addr;
+    }
+</pre>
+                      </div>
+                  </div>
+
+              </div>
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

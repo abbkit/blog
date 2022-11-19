@@ -1,0 +1,89 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>Store Testing</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        NAS测试存储的时候，从以下几点测试
+        <ul >
+            <li>NETWORK
+                <ul class="">
+                    <li>注意网络是Gb/10Gb</li>
+                    <li>iftop工具可以监控网络流量</li>
+                    <li>iperf工具可以测试网络带宽，带宽测试的时候注意方向，线路方向不一样，网络流量的大小也会不一样</li>
+                </ul>
+            </li>
+            <li>HDD/SSD IO
+                <ul>
+                    <li>iostat -x -d 3</li>
+                    <li>HDD硬盘在SATA3（6Gb）通道下的顺序RW速度差不多在200MB，SSD差不多可以跑到560MB，接近SATA3的理论值；
+                        SSD一般都会走PCI-E （x2,x4）通道，780MB-3GB</li>
+                    <li>在4K随机IO下，HDD的速度非常差的，在0.5MB-2MB/S（差不多IOPS在100-200次/S）;
+                        SSD可以达到60M-100M，IOPS可以达到2W次/S；两者都表现出随机读没有随机写快
+                    </li>
+                </ul>
+            </li>
+            <li>MEMORY
+
+                <ul>
+                    <li>top /  free -h </li>
+                    <li>
+                        更大的内存可以缓存更多的文件缓存，能有效提升存储的性能
+                    </li>
+                    <li>
+                        内存一般和IO存在此消彼长的关系
+                    </li>
+                </ul>
+            </li>
+            <li>CPU
+                <ul>
+                    <li>top </li>
+                    <li>一般情况下，CPU使用都不高，除非使用了压缩模式</li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <strong>NAS在1Gb网口（128MB/S）下不能完全利用硬盘的速度，可以通过在NAS端添加IO存储缓存Buff/Cache提高NAS的性能，
+        也可以选用有2.5Gb网口的NAS设备
+        </strong>
+
+    </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

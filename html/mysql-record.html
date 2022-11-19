@@ -1,0 +1,254 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>MYSQL Record</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu" >
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">MSYQL</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">脚本</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2">备份</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-2-1">脚本</a>
+                    </nav>
+                    <a class="nav-link" href="#item-3">Liquibase</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-3-1">脚本</a>
+                    </nav>
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-1">MSYQL</h1>
+              <h2 id="item-1-1">脚本</h2>
+
+              <h3>conf</h3>
+              <p>
+                MYSQL的配置文件<a href="/file/my.cnf" target="_blank">my.cnf</a>,注意docker下volume映射。
+              </p>
+
+
+              <h3>basic</h3>
+              <p>
+                  可以使用如下SQL
+                  <code>select user,host,authentication_string,password_expired,password_last_changed,password_lifetime,account_locked from mysql.user;</code>
+                  查看用户的一些权限、密码信息（必须有访问mysql库的权限）<br/>
+              修改密码的方式：
+                <ul>
+                    <li>set password for 用户名@{ip/host} = password('新密码');
+                    例如：set password for root@localhost = password('jiazhongjin');
+                        set password for root@'%' = password('jiazhongjin');
+                    </li>
+
+                </ul>
+
+
+              </p>
+
+
+              <h1 id="item-2">备份</h1>
+              <h2 id="item-2-1">脚本</h2>
+              <h3>备份 - XtraBackup</h3>
+
+              <p>
+                  <a href="https://www.percona.com/doc/percona-xtrabackup/2.4/installation/yum_repo.html">install</a> first<br/>
+                  使用xtrabackup执行全量+增量的方式
+              https://help.aliyun.com/knowledge_detail/41817.html?spm=5176.11065259.1996646101.searchclickresult.53d420cclqekK3
+                  <ul>
+                      <li><span class="font-weight-bolder">XtraBackup需要在可接触到DATA数据的系统上运行，一般情况为运行MYSQL的机器，<br/>
+                          如果你是使用docker部署，注意volumes挂载(在这种情况下，datadir一般为外部挂载路径，使用host-port连接MYSQL，或者使用socket)
+                      </span></li>
+                  </ul>
+              </p>
+              <h4>全量<a href="https://www.percona.com/doc/percona-xtrabackup/2.4/backup_scenarios/full_backup.html" target="_blank">link...</a></h4>
+              <p>
+                  <h5>备份:</h5>
+              xtrabackup --defaults-file=/etc/my.cnf --user=root --password={password} --host=127.0.0.1 --port=10021 --parallel=2 --throttle=200 --backup --target-dir={backup path}
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>--user=root --password={password}             备份操作用户名，一般都是root用户 </li>
+                      <li>--host=127.0.0.1  --port=10021        主机ip，本地可以不加（适用于远程备份）。注意要提前在mysql中授予连接的权限，最好备份前先测试用命令中的用户名、密码和host能否正常连接mysql。</li>
+                      <li>--parallel=2 --throttle=200      并行个数，根据主机配置选择合适的，默认是1个，多个可以加快备份速度。</li>
+                  </ul>
+              </div>
+
+              <h5>prepare：</h5>
+              <p>xtrabackup --defaults-file=./my.cnf --prepare --target-dir={backup-data-path}</p>
+                  <h5>重建mysql data</h5>
+              <p>xtrabackup --defaults-file=./my.cnf --copy-back --target-dir{your-mysql-data-path}</p>
+              </p>
+              <div class="font-italic text-black-50 mark">
+                  使用extrabackup2.4<span>innobackupex version 2.4.20 based on MySQL server 5.7.26 Linux (x86_64) (revision id: c8b4056)</span>
+                  的时候，也许需要通过<code>mysql_upgrade -h 127.0.0.1 -u root –p</code>更新你的mysql structure。
+                  <span class="">
+                      [ERROR] Column count of performance_schema.threads is wrong. Expected 17, found 3. Created with MySQL 50561, now running 50723. Please use mysql_upgrade to fix this error.
+                      [ERROR] Native table 'performance_schema'.'events_stages_current' has the wrong structure
+                  </span>
+              </div>
+
+              <h4>增量<a href="https://www.percona.com/doc/percona-xtrabackup/2.4/backup_scenarios/incremental_backup.html" target="_blank">link...</a></h4>
+              <h5>备份:</h5>
+              首先执行全量操作，然后执行增量：
+
+              xtrabackup --defaults-file=./my.cnf --host=192.168.0.123 --port=10021  --parallel=2 --throttle=200 --backup --target-dir=./inc1 --incremental-basedir=./backup
+              <ul>
+                  <li>--incremental-basedir 全量操作使用的存储目录 </li>
+                  <li>--target-dir 增量操作使用的存储目录，建议名称为inc++</li>
+                  <li>--parallel=2 --throttle=200      并行个数，根据主机配置选择合适的，默认是1个，多个可以加快备份速度。</li>
+              </ul>
+
+
+              <h5>prepare base：</h5>
+              xtrabackup --prepare <code>--apply-log-only</code> --target-dir=./backup
+              <ul>
+                  <li class="font-weight-bold">--apply-log-only 指示不要做rallback，非常重要(增量备份下的基础包肯定不需要执行rallback)</li>
+              </ul>
+
+              <h5>prepare incremental part：</h5>
+              xtrabackup --defaults-file=./my.cnf --prepare <code>--apply-log-only</code> --target-dir=./backup --incremental-dir=./inc1
+              <div class="font-italic text-black-50 mark">
+                  xtrabackup --apply-log-only should be used when merging all incrementals except the last one.意味着最后一个incremental不需要使用
+                  <code>--apply-log-only</code>,如果你使用了这个参数，MYSQL在启动的时候会执行回滚操作。
+              </div>
+              <h5>重建mysql data</h5>
+              <p>xtrabackup --defaults-file=./my.cnf --copy-back --target-dir{your-mysql-data-path}</p>
+
+
+
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          InnoDB: Error: log file ./ib_logfile0 is of different size 5242880 bytes
+                          InnoDB: than specified in the .cnf file 50331648 bytes
+                      </div>
+                      <div class="blog-a">
+                          需要配置<code>innodb_log_file_size = 5M</code>
+                          <div class="font-italic text-black-50 mark">
+                              在配置文件中将innodb_log_file_size参数设置为5M，默认这个参数是未启用的，虽然未启用，不过有默认值，
+                              但默认值与实际的ib_logfile数值大小不一致，导致innobackupex命令在执行过程中检查这些参数的设置时不一致而报错终止备份的过程
+                          </div>
+                          https://blog.csdn.net/weixin_40001704/article/details/87908481
+
+                      </div>
+                  </div>
+
+
+              </div>
+
+
+
+              <h1 id="item-3">Liquibase</h1>
+              <h2 id="item-3-1">脚本</h2>
+
+              <h3>比较两个库的不同</h3>
+              <pre>
+liquibase --logLevel=debug --driver=com.mysql.jdbc.Driver  ^
+--url={source jdbc url} ^
+--username=root --password=jiazhongjin ^
+diff ^
+--referenceUrl={reference source jdbc url} ^
+--referenceUsername=root --referencePassword=jiazhongjin
+              </pre>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+
+                      <li>--url 配置源数据库的JDBC URL</li>
+                      <li>--referenceUrl 配置参考数据库的JDBC URL</li>
+                  </ul>
+              </div>
+              <span class="font-weight-bold text-red">产生“参考数据库”相比于“源数据库不一样的地方”</span>
+
+              <h3>比较两个库的不同,并生成输出文件</h3>
+              <pre>
+liquibase --logLevel=debug --driver=com.mysql.jdbc.Driver ^
+--changeLogFile="changeLogFileBaseInfo.mysql.sql" ^
+--url={source jdbc url} ^
+--username=root --password=jiazhongjin ^
+--referenceUrl={reference source jdbc url} ^
+--referenceUsername=root --referencePassword=jiazhongjin  ^
+diffChangeLog
+              </pre>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>--changeLogFile 配置输出文件</li>
+                  </ul>
+              </div>
+
+
+              <h3>生成数据库的初始化文件，</h3>
+              <pre>
+liquibase --logLevel=debug --driver=com.mysql.jdbc.Driver ^
+--changeLogFile=./baseline-200414.xml ^
+--url={source jdbc url} ^
+--username=root --password=jiazhongjin ^
+generateChangeLog
+              </pre>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>通过生成的xml文件，执行liquibase初始化流程，可以恢复整个库</li>
+                  </ul>
+              </div>
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

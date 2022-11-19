@@ -1,0 +1,176 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>Directive Syntax</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+<!-- --https://www.sojson.com/rehtml -->
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+
+        <pre>
+
+语法结构
+
+        ainobug.mv.renderHtml($dom,data,function{
+            filter : function(data,$dom)
+            post : function (record,$dom,context)
+        });
+
+        </pre>
+<pre>
+部分示例
+&lt;tbody&gt;
+    &lt;tr <span class="font-weight-bold text-red">ainobug-for</span>=&quot;im in {this} &quot;  class=&quot;ainobug-template-hide &quot;  <span class="font-weight-bold text-red">ainobug-post</span> &gt;
+    &lt;td class=&quot; dataio-menu-th-sn &quot; ainobug-text=&quot;{im.meta.globalOffset}&quot; &gt;&lt;/td&gt;
+    &lt;td <span class="font-weight-bold text-red">ainobug-text</span>=&quot;{im.data.name}&quot; &gt;A&lt;/td&gt;
+    &lt;td ainobug-text=&quot;{im.data.code}&quot; &gt;C&lt;/td&gt;
+    &lt;td ainobug-text=&quot;{im.data.url}&quot; &gt;D&lt;/td&gt;
+    &lt;td ainobug-text=&quot;{im.data.description}&quot; &gt;D&lt;/td&gt;
+    &lt;td class=&quot; dataio-menu-td-operation &quot;&gt;
+
+        &lt;a ainobug-data=&quot;id={im.data.id}&quot; name=&quot;row_edit_btn&quot; href=&quot;javascript:void(0);&quot;
+           style=&quot;&quot; class=&quot;btn btn-link  &quot; title=&quot;编辑&quot; &gt;编辑&lt;/a&gt;
+
+        &lt;a ainobug-data=&quot;id={im.data.id}&quot;  name=&quot;row_del_btn&quot; href=&quot;javascript:void(0);&quot;
+           style=&quot;&quot; class=&quot;btn btn-link  &quot; title=&quot;删除&quot; &gt;删除&lt;/a&gt;
+    &lt;a <span class="font-weight-bold text-red">ainobug-data</span>=&quot;id={im.data.id},menuName={im.data.name}&quot; name=&quot;row_add_btn&quot; href=&quot;javascript:void(0);&quot;
+            style=&quot;&quot; class=&quot;btn btn-link &quot;  title=&quot;添加&quot;
+            <span class="font-weight-bold text-red">ainobug-if</span>
+        &gt;添加&lt;/a&gt;
+    &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+</pre>
+
+        <div class="blog-qa-list">
+            <div class="blog-qa">
+                <div class="blog-q">
+                    ainobug-post
+                </div>
+                <div class="blog-a">
+                    渲染完成当前dom后执行post函数<br/>
+                    ainobug.mv.renderHtml('#menuList',dataArray,{
+                    <span class="font-weight-bold text-red">post</span>:function (record,$dom,context) {
+                        if(record.meta && record.meta.level==1){
+                        $($dom).addClass('dataio-menu-parent');
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="blog-qa">
+                <div class="blog-q">
+                    ainobug-if
+                </div>
+                <div class="blog-a">
+                    如果函数filter返回false 不渲染当前dom<br/>
+                    ainobug.mv.renderHtml('#menuList',dataArray,{
+                    <span class="font-weight-bold text-red">filter</span>:function (record,$dom) {
+                    return record.meta.level==1;
+                    }
+                    });
+                </div>
+            </div>
+
+
+            <pre>
+
+&lt;td class=&quot; ainobug-td-operation &quot;&gt;
+&lt;a  <span class="font-weight-bold text-red">ainobug-data</span>=&quot;id={im.id},schema={im.schema},tableName={im.tableName}&quot; name=&quot;row_view_btn&quot; href=&quot;javascript:void(0);&quot;
+        style=&quot;&quot; class=&quot;btn btn-link &quot;  title=&quot;查看&quot;&gt;查看&lt;/a&gt;
+
+&lt;/td&gt;
+            </pre>
+            <div class="blog-qa">
+                <div class="blog-q">
+                    <span class="font-weight-bold text-red">ainobug-data</span>=&quot;id={im.id},schema={im.schema},tableName={im.tableName}&quot;
+                </div>
+                <div class="blog-a">
+                    属性名={属性值}[,属性名={属性值}],... 多个属性值逗号隔开
+                </div>
+            </div>
+
+            <div class="blog-qa">
+                <div class="blog-q">
+                    <span class="font-weight-bold text-red">ainobug-text</span>=&quot;{im.data.url}&quot;
+                </div>
+                <div class="blog-a">
+                    {属性值}
+                </div>
+            </div>
+
+            <div class="blog-qa">
+                <div class="blog-q">
+                    <span class="font-weight-bold text-red">ainobug-for</span>=&quot;im in {this} &quot;
+                </div>
+                <div class="blog-a">
+                    {迭代变量名 in 迭代对象}
+                </div>
+            </div>
+
+<pre>
+&lt;div class=&quot;modal-body &quot; ainobug-attr=&quot;data-htmlUrl={url},data-layoutId={layoutId}&quot;   &gt; &lt;/div&gt;
+</pre>
+            <div class="blog-qa">
+                <div class="blog-q">
+                    <span class="font-weight-bold text-red">ainobug-attr</span>=&quot;data-htmlUrl={url},data-layoutId={layoutId}&quot;
+                </div>
+                <div class="blog-a">
+                    HTML属性名={属性值}[,HTML属性名={属性值}],... 多个属性值逗号隔开
+                </div>
+            </div>
+
+
+            <pre>
+&lt;input id=&quot;pid&quot; type=&quot;hidden&quot; name=&quot;pid&quot; ainobug-value=&quot;{pid}&quot;/&gt;
+</pre>
+
+            <div class="blog-qa">
+                <div class="blog-q">
+                    <span class="font-weight-bold text-red">ainobug-value</span>=&quot;{pid}&quot;
+                </div>
+                <div class="blog-a">
+                    {属性值}
+                </div>
+            </div>
+
+        </div>
+
+
+    </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

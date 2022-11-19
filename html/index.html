@@ -1,0 +1,329 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="baidu-site-verification" content="69UjWB5MD2" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/custom/blog.css" >
+    <link rel="stylesheet" href="/custom/blog-index.css" >
+    <title>爱宝宝计算机</title>
+
+    <!-- AINOBUG START -->
+    <!-- script dependencies-->
+    <link rel="stylesheet" href="./ainobug/ainobug.css">
+    <link rel="stylesheet" href="./ainobug/ainobug-layout.css">
+    <link rel="stylesheet" href="./ainobug/toast/jquery.toast.css">
+    <link rel="stylesheet" href="./ainobug/jquery-confirm/jquery-confirm.css"> <!--  jquery confirm -->
+    <!-- AINOBUG END -->
+
+    
+  </head>
+  <body class="index">
+
+      <blogHeader data-item="index"></blogHeader>
+
+      <main class="index-main">
+
+        <!--<div class=" index-broadcast container-fluid  d-none d-md-block">-->
+
+          <!--<ul class="list-inline " >-->
+            <!--<li class="list-inline-item"><a target="_blank" href="http://oss.ainobug.com:10088/static/index.html">Lemon</a></li>-->
+            <!--<li class="list-inline-item"><a target="_blank" href="http://api.ainobug.com/blog-api/swagger-ui.html">Swagger</a></li>-->
+            <!--<li class="list-inline-item"><a target="_blank" href="http://ainobug.com:50070/">Hadoop</a></li>-->
+            <!--<li class="list-inline-item"><a target="_blank" href="http://ainobug.com:16010/">HBase</a></li>-->
+          <!--</ul>-->
+
+        <!--</div>-->
+
+        <div class=" container-fluid ">
+          <div class="row " style=" ">
+            <a  style="    font-size: 25px; margin: 0 auto 5px auto;"
+                href="http://lemon.ainobug.com:10088/static/index.html" target="_blank" >
+              Lemon(柠檬)数据存储平台 Go!>
+            </a>
+          </div>
+        </div>
+        <!-- searching start -->
+        <div class=" container-fluid showing-area">
+          <div class=" row showing-area-content">
+            <div class="col-10 container col-xl-6">
+              <div class=" text-center font-weight-bold ">
+                <p>2022年要到啦</p>
+              </div>
+              <div class=" row  input-search">
+                <div class="col-sm-12 col-md-10 ">
+                  <input type="text" class="" name="query" placeholder="Searching" >
+                </div>
+                <div class="col-sm-12  col-md-2 ">
+                  <button id="searchLink" class="btn" type="button">检索</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- searching end -->
+
+        <div class=" container  showing-list ">
+
+<!--          <div class="card-columns" >-->
+<!--            <div class="card ainobug-template-hide " ainobug-for="im in {this} "   >-->
+<!--              <div class="card-body">-->
+<!--                <h5 class="card-title" ainobug-text="{im.title}" >Card title that wraps to a new line</h5>-->
+<!--                <p class="card-text"  ainobug-text="{im.shortContent}"  >This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--                <p class="card-text text-right">-->
+<!--                  <a class="" ainobug-href="{im.linkHtml}">-->
+<!--                  <small class="text-muted" ainobug-text="{im.linkHtml}"></small>-->
+<!--                  </a>-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--          </div>-->
+
+          <div class="card-columns">
+
+            <div class="card ainobug-template-hide " ainobug-for="im in {this} ">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">Card title that wraps to a new line</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}"></small>
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">MYSQL</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">MSYQL部署、运维</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="mysql-record.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">mysql-record.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">Nginx</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">Nginx相关配置</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="day-lvs.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">day-lvs.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">数据管理平台（数仓）</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">在Lemon（柠檬）数据存储平台上创建的应用，包含数据授权、数据集市、数据主题、数据分析模型、数据统计、数据生命周期管理、数据网关服务等</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="http://dataio.ainobug.com">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">http://dataio.ainobug.com</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">MAT分析</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">DUMP(堆转储)文件  1.主动生成DUMP文件，运行jmap -dump:live,format=b,file=heap-dump.dump ${pid}  2.启动JVM时添加-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${目录}，在抛出OOM异常时自动生成DUMP文件  可以使用MAT（Memory Analyzer Tool） 或者 jhat 命令 (http://localhost:7000/)</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="day-record.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">day-record.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">普通项目构建环境</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">普通项目构建需要哪些中间件等</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="solution-record.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">solution-record.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">DOCKER使用记录</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">DOCKER</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="solution-record.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">solution-record.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">LEMON说明文档</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">建立统一的数据存储平台，解决跨HBASE/HDFS/NOSQL和RDBMS数据存储系统时访问不一致，开发接口多样的问题。引入数据分层的理念， 在冷热数据处理上采取不同的策略，综合利用大数据存储和RDBMS数据存储的优势。通过Master Slave的架构设计，平台在高可用、线性扩展上继承了Hadoop生态的优点。</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="lemon.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">lemon.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">MYSQL使用记录</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">MYSQL</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="mysql-record.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">mysql-record.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">AINOBUG标签</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">ainobug-for,ainobug-if...</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="ui-record.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">ui-record.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">Cert授权</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">Cert授权</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="cert.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">cert.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="card ainobug-template-render">
+              <div class="card-body">
+                <h5 class="card-title" ainobug-text="{im.title}">G1收集器（注意：外链）</h5>
+                <p class="card-text" ainobug-text="{im.shortContent}">Garbage-First，面向服务端的垃圾收集器。  并行与并发：充分利用多核环境减少停顿时间， 分代收集：不需要配合其它收集器 空间整合：整体上看属于标记整理算法，局部（region之间）数据复制算法，运作期间不会产生空间碎片 停顿可预测，建立可以预测的停顿时间模型。 内存管理：  将整个java堆划分为多个大小形同的区域region，新生代和老年代都是region的集合。可以有计划的避免在全区域内进行垃圾收集。</p>
+                <p class="card-text text-right">
+                  <a class="" ainobug-href="{im.linkHtml}" href="https://www.cnblogs.com/niejunlei/p/5989814.html">
+                    <small class="text-muted" ainobug-text="{im.linkHtml}">https://www.cnblogs.com/niejunlei/p/5989814.html</small>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+
+        <!--<div class="text-center display-1 welcomeText">-->
+          <!--A Developer!-->
+        <!--</div>-->
+        <!--<div class="text-center display-4 font-italic">-->
+          <!--welcome-->
+        <!--</div>-->
+
+      </main>
+
+
+      <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+      <script src="/custom/blog.js" ></script>
+
+
+<!-- AINOBUG START -->
+<!-- script dependencies-->
+<script src="./ainobug/jquery-confirm/jquery-confirm.js"></script> <!-- jquery confirm -->
+<script src="./ainobug/toast/jquery.toast.js"></script>
+<script src="./ainobug/md5/jQuery.md5.js"></script> <!-- MD5 -->
+<script src="./ainobug/lodash/lodash.min.js"></script>
+<script src="./ainobug/cookie/js.cookie.js"></script> <!-- JS Cookie -->
+
+<!-- SELF STAT-->
+<script src="./ainobug/ainobug-boot-config.js"></script>
+<script src="./ainobug/ainobug.js"></script>
+<script src="./ainobug/ainobug-dict.js"></script>
+<script src="./ainobug/ainobug-layout.js"></script>
+<script src="./ainobug/ainobug-menu.js"></script>
+<script src="./ainobug/ainobug-layout-modal.js"></script>
+<script src="./ainobug/ainobug-ticket.js"></script>
+<!-- AINOBUG END -->
+
+  </body>
+</html>
+<script type="application/javascript">
+
+  ainobug.ready(function () {
+
+      $('#searchLink').on('click',function () {
+          search();
+      });
+
+      function search() {
+          let encoded=encodeURIComponent($('input[name="query"]').val());
+          window.location.href="/search-list.html?query="+encoded;
+      }
+
+      $('input[name="query"]').keydown(function(e){
+          if(e.keyCode==13){
+              search();
+          }
+      });
+
+      // ainobug.pageTemplate.ajaxPost({
+      //   url: '/card/list',
+      //   formData: {
+      //
+      //   },
+      //   success: function (data) {
+      //
+      //     console.log(data)
+      //
+      //     ainobug.mv.renderHtml('.card-columns',data);
+      //
+      //   }
+      //
+      // })
+
+  })
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

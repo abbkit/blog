@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/custom/blog.css" >
+    <title>Blog检索</title>
+  </head>
+  <body>
+
+  <blogHeader></blogHeader>
+
+      <main class="blog-main">
+
+        <div class="input-group" style="max-width: 600px;margin: 0 auto;padding-top: 15px;padding-bottom: 30px;">
+          <input type="text" name="query" class="form-control" placeholder="Search Anything">
+          <div class="input-group-append" id="searchLink">
+                  <span class="input-group-text btn btn-link" id="basic-addon2">
+                    Search
+                  </span>
+          </div>
+          <div class="invalid-feedback" style="display: inline-block">
+            不能包含如下的字符 ? \ * , 最大30个字符
+          </div>
+        </div>
+
+
+
+        <div class="list-group" id="searchListDiv">
+          <!--<a href="#" class="list-group-item list-group-item-action active">-->
+            <!--<div class="d-flex w-100 justify-content-between">-->
+              <!--<h5 class="mb-1">List group item heading</h5>-->
+              <!--<small>3 days ago</small>-->
+            <!--</div>-->
+            <!--<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>-->
+            <!--<small>Donec id elit non mi porta.</small>-->
+          <!--</a>-->
+
+        </div>
+
+
+        <div class="text-center display-1 " id="notFoundDiv" style="display: none;">
+
+          Not Found.
+
+        </div>
+
+        <div>
+
+        </div>
+        
+  
+      </main>
+
+    <blogFooter></blogFooter>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script type="application/javascript">
+
+  $(function () {
+
+      var query=$.getUrlParam("query");
+      $('input[name="query"]').val(decodeURIComponent(query));
+
+      function search() {
+          var val=$('input[name="query"]').val();
+          if(val.length>30){
+              $.blogs.msg('input is long.');
+              return;
+          }
+          var encoded=encodeURIComponent(val);
+          $.blogs.get($.blogConfig.apiUrl+"/blog-content/search?query="+encoded, function(result){
+
+              $('#searchListDiv').empty();
+
+              if(result.data.length==0){
+                  $('#notFoundDiv').show();
+                  return;
+              }
+
+              for(var i=0;i<result.data.length;i++){
+                  var record=result.data[i];
+                  var recordHtml=
+                      '<a href="'+record.uri+'" target="_blank" class="list-group-item list-group-item-action">'
+                      +'<div class="d-flex w-100 justify-content-between">'
+                      +'<h5 class="mb-1">'+record.uri+'</h5>'
+                      +'<small>'+record.score+'</small>'
+                      +'</div>'
+                      +'<p class="mb-1">'+record.content+'</p>'
+                      +'<small></small>'
+                      +'</a>';
+                  $('#searchListDiv').append(recordHtml);
+              }
+          },'json');
+      }
+
+      search();
+
+      function refreshSearch() {
+          var encoded=encodeURIComponent($('input[name="query"]').val());
+          window.location.href="/search-list.html?query="+encoded;
+      }
+
+      $('#searchLink').on('click',function () {
+          refreshSearch();
+      });
+
+      $('input[name="query"]').keydown(function(e){
+          if(e.keyCode==13){
+              refreshSearch();
+          }
+      });
+
+  });
+
+
+
+</script>
+

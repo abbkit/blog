@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" >
+    <link rel="stylesheet" href="/custom/blog.css" >
+    <title>Cert Get</title>
+  </head>
+  <body>
+
+      <blogHeader data-item=""></blogHeader>
+
+      <main class="blog-main">
+
+
+        <div class="text-center">
+          <p class="h1">授权</p>
+          <p>
+            点击下面的“获取授权信息”得到授权编码，参考<a href="lemon.html">LEMON(柠檬)数据存储平台</a>配置授权信息
+          </p>
+        </div>
+
+        <form style="max-width: 600px; margin: 0 auto;padding-top: 30px">
+          <div class="form-group row">
+            <label for="inputState" class=" col-2 col-form-label">Day</label>
+            <div class="input-group col-10">
+              <select id="inputState" class="form-control" name="selectedDay">
+                <option selected value="7">7天</option>
+                <option value="15">15天</option>
+                <option value="30">30天</option>
+              </select>
+              <div class="invalid-feedback" style="display: inline-block">
+                最大天数为 30天
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="version" class=" col-2 col-form-label">Version</label>
+            <div class="input-group col-10">
+              <select id="version" class="form-control" name="version">
+                <option selected value="3.0.1">v3.0.1</option>
+              </select>
+              <div class="invalid-feedback" style="display: inline-block">
+                当前版本只有3.0.1
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary">获取授权信息</button>
+          </div>
+        </form>
+
+        <div id="cert" style="max-width: 600px; margin: 0 auto;padding-top: 60px">
+
+        </div>
+
+
+        <div id="expired" style="color: red;max-width: 600px; margin: 0 auto;padding-top: 60px">
+
+        </div>
+
+
+
+
+
+      </main>
+
+    <blogFooter></blogFooter>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+
+<script type="application/javascript">
+
+    $(function () {
+
+
+        $('form button').on('click',function () {
+            $('#cert').empty();
+            $('#expired').empty();
+
+            var selectedDay=$('select[name="selectedDay"]').val();
+            var version=$('select[name="version"]').val();
+
+            $.post($.blogConfig.apiUrl+"/cert/get"
+                ,
+                {
+                    selectedDay:selectedDay,
+                    version:version
+                }
+                ,
+                function(result){
+
+                  if(result.status=='SYS_ERROR'){
+                      $('#cert').html(result.data);
+                  }else if(result.status=='SUCCESS'){
+                      $('#cert').html(result.data.cert);
+                      $('#expired').html('过期时间：'+result.data.expired);
+                  }else {
+                      $('#cert').html('ERROR');
+                  }
+                },'json'
+            );
+
+        });
+
+
+    });
+
+
+
+</script>
+

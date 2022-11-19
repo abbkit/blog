@@ -1,0 +1,307 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>Solution Record</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu">
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">MYSQL</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">Script</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2">EXCEL STREAM</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-2-1">Monitoring</a>
+                    </nav>
+                    <a class="nav-link" href="#item-3">Rabbit MQ</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-3-1">Erlang</a>
+                        <a class="nav-link ml-3 my-1" href="#item-3-2">MQ</a>
+                    </nav>
+                    <a class="nav-link" href="#item-4">Elastic</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-4-1">elastic install</a>
+                        <a class="nav-link ml-3 my-1" href="#item-4-2">Kibana</a>
+                    </nav>
+                    <a class="nav-link" href="#item-5">Redis</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-5-1">redis install</a>
+                    </nav>
+                    <a class="nav-link" href="#item-6">Docker</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-6-1">docker install</a>
+                    </nav>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-6-2">docker compose</a>
+                    </nav>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-6-3">Portainer</a>
+                    </nav>
+
+
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-1">MYSQL</h1>
+              <h2 id="item-1-1">Script</h2>
+              <p>
+
+                  MYSQL参考<a href="mysql-record.html" target="_blank">部署-备份</a>
+
+              </p>
+
+              <h1 id="item-2">EXCEL STREAM</h1>
+              <h2 id="item-2-1">Monitoring</h2>
+              <p>
+                  下载服务端<a href="file/cpp-xstream-rest-api-3.0.1.jar" target="_blank">cpp-xstream-rest-api-3.0.1(JAR)</a>,执行下面的命令启动服务：<br/>
+                  <code>java -jar cpp-xstream-rest-api-3.0.1.jar --xstream.web.repo-config.root=c:/aaa --server.port=8083</code>
+                  启动完成后，访问http://host:port/
+              </p>
+              <div class="font-italic text-black-50 mark">
+
+                  <ul>
+                      <li>--xstream.web.repo-config.root 指定需要监控的目录，这个目录通常为excel stream处理过程中的日志目录,默认为d:/test-xml-streaming</li>
+                      <li>--server.port 指定端口，默认为8989</li>
+                      <li>--logging.file 指定日志目录，默认为d:/__log__/excel-rest.log</li>
+                  </ul>
+                </div>
+
+              <h1 id="item-3">Rabbit MQ</h1>
+              <h2 id="item-3-1" >Erlang<a href="https://www.erlang-solutions.com/resources/download.html" target="_blank">...</a></h2>
+              <ol class="">
+                  <li>yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel</li>
+                  <li>wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm</li>
+                  <li>yum -y install epel-release</li>
+                  <li>rpm -Uvh erlang-solutions-1.0-1.noarch.rpm</li>
+                  <li>yum install erlang</li>
+                  <li>yum info erlang</li>
+
+              </ol>
+<pre>
+名称    ：erlang
+架构    ：x86_64
+版本    ：22.3.2
+发布    ：1.el7
+大小    ：0.0
+源    ：installed
+来自源：erlang-solutions
+简介    ： General-purpose programming language and runtime environment
+网址    ：http://www.erlang.org
+协议    ： ERPL
+描述    ： Erlang is a general-purpose programming language and runtime
+         : environment. Erlang has built-in support for concurrency, distribution
+         : and fault tolerance. Erlang is used in several large telecommunication
+         : systems from Ericsson.
+
+</pre>
+              <h2 id="item-3-2">RabbitMQ</h2>
+
+              <ol>
+                  <li>wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.0/rabbitmq-server-3.8.0-1.el7.noarch.rpm</li>
+                  <li>yum -y install socat</li>
+                  <li>rpm -ivh rabbitmq-server-3.8.0-1.el7.noarch.rpm</li>
+
+              </ol>
+
+              <h3>设置开机启动</h3>
+              <p>chkconfig rabbitmq-server on</p>
+
+              <h3>启动</h3>
+              <p>systemctl start rabbitmq-server</p>
+              <h3>检查</h3>
+              <p><code>rabbitmqctl status</code></p>
+
+              <h3>安装管理端界面</h3>
+              <code>rabbitmq-plugins enable rabbitmq_management</code><br/>
+              查看5672端口（rabbitmq服务端口），以及15672 WEB控制台界面<br/>
+
+              修改用户及密码<br/>
+              vim /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.0/ebin/rabbit.app
+
+              将：{loopback_users, [<<”guest”>>]}， 改为：{loopback_users, []}
+              <div class="font-italic text-black-50 mark">
+                  rabbitmq从3.3.0开始禁止使用guest/guest权限通过除localhost外的访问
+              </div>
+
+
+
+              <h1 id="item-4">Elastic 5.6.11<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/_installation.html" target="_blank">...</a></h1>
+              <h2 id="item-4-1">elastic install</h2>
+              <h3>添加用户elastic</h3>
+              <ol>
+                  <li>groupadd elastic</li>
+                  <li>useradd -g elastic -p elastic elastic</li>
+              </ol>
+              sudo 权限获取,修改 /etc/sudoers ， 增加 <code>elastic ALL=(ALL) NOPASSWD:ALL</code>
+
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          修改资源限制
+                      </div>
+                      <div class="blog-a">
+                          在/etc/security/limits.conf文件中添加
+                          <ol>
+                              <li>@elastic - nofile 65536</li>
+                              <li>@elastic - nproc 2048</li>
+                          </ol>
+                          <div class="font-italic text-black-50 mark">
+                              @elastic 表示elastic组下的所有用户<br/>
+                              For the .zip and .tar.gz packages, set <code>ulimit -n 65535</code> as root before starting Elasticsearch,
+                              or set nofile to 65535 in <code>/etc/security/limits.conf</code>.
+                          </div>
+                          <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.6/file-descriptors.html" target="_blank">https://www.elastic.co/guide/en/elasticsearch/reference/7.6/file-descriptors.html</a>
+
+                      </div>
+                  </div>
+              </div>
+              <h3>启动</h3>
+              <p>./bin/elasticsearch  -d -p pid</p>
+
+              <h3 id="item-4-2">Kibana</h3>
+              配置./config/kibana.yml
+<pre>
+server.port: 5601
+server.host: "0.0.0.0"
+server.name: "lx"
+elasticsearch.url: "http://192.168.0.112:9200"
+elasticsearch.username: "elastic"
+elasticsearch.password: "changeme"
+</pre>
+            <h4>启动</h4>
+              <p>./kibana & 1>/dev/null 2>&1 </p>
+
+              <h1 id="item-5">Redis 5.0.9<a href="http://download.redis.io/releases/" target="_blank">...</a></h1>
+              <h2 id="item-5-1">redis install</h2>
+              <p>
+                  首先执行<code>make</code>,
+                  然后到src目录里面执行<code>make install -PREFIX=/work/redis-5.0.9</code>
+                  OK，我们现在<code>cp ../redis.conf /work/redis-5.0.9</code>
+              </p>
+              <div class="font-italic text-black-50 mark">
+                  配置文件需要使用<code>tarball</code>里面的<code>redis.conf</code>文件
+                  <ul>
+                      <li><span class="text-red">requirepass</span>：设置客户端连接后进行任何其他指定前需要使用的密码</li>
+                      <li><span class="text-red">daemonize</span>：如需要在后台运行，把该项的值改为yes</li>
+                      <li><span class="text-red">bind</span>：指定redis只接收来自该IP的请求，如果不设置，那么将处理所有请求，在生产环节中最好设置该项</li>
+                      <li>timeout：设置客户端连接时的超时时间，单位为秒</li>
+                      <li>loglevel：等级分为4级，debug，revbose，notice和warning。生产环境下一般开启notice</li>
+                      <li>logfile：配置log文件地址，默认使用标准输出，即打印在命令行终端的端口上</li>
+                      <li>save：设置redis进行数据库镜像的频率</li>
+                      <li>rdbcompression：在进行镜像备份时，是否进行压缩</li>
+                      <li>dbfilename：镜像备份文件的文件名</li>
+                      <li>dir：数据库镜像备份的文件放置的路径</li>
+
+                      <li>appendonly：开启appendonly模式后，redis会把每一次所接收到的写操作都追加到appendonly.aof文件中，当redis重新启动时，会从该文件恢复出之前的状态</li>
+                      <li>appendfsync：设置appendonly.aof文件进行同步的频率</li>
+
+                      <li>vm_enabled：是否开启虚拟内存支持</li>
+                      <li>vm_swap_file：设置虚拟内存的交换文件的路径</li>
+                      <li>vm_max_momery：设置开启虚拟内存后，redis将使用的最大物理内存的大小，默认为0</li>
+                      <li>vm_page_size：设置虚拟内存页的大小</li>
+                      <li>vm_pages：设置交换文件的总的page数量</li>
+                      <li>vm_max_thrrads：设置vm IO同时使用的线程数量</li>
+
+                      <li>maxmemory：设置redis能够使用的最大内存</li>
+                      <li>maxclients：限制同时连接的客户端数量</li>
+
+                      <li>slaveof：设置该数据库为其他数据库的从数据库</li>
+                      <li>masterauth：当主数据库连接需要密码验证时，在这里设定</li>
+
+                  </ul>
+              </div>
+              <h3>启动</h3>
+              <p>到刚刚 INSTALL PREFIX 的目录下，执行 <code>./bin/redis-server redis.conf</code> </p>
+
+
+              <h1 id="item-6">Docker <a href="http://download.redis.io/releases/" target="_blank">...</a></h1>
+              <h2 id="item-6-1">docker install</h2>
+
+              <ol>
+                  <li>yum install -y yum-utils device-mapper-persistent-data lvm2 </li>
+                  <li>yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</li>
+                  <li>yum install docker-ce</li>
+              </ol>
+
+              <div class="font-italic text-black-50 mark">
+                  <a>配置阿里云docker镜像是非常重要的</a>
+                  https://docs.docker.com/engine/install/centos/
+              </div>
+
+              <h2 id="item-6-2">Docker Compose <a href="https://docs.docker.com/compose/install/" target="_blank">...</a></h2>
+              curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              <div class="font-italic text-black-50 mark">
+                  To install a different version of Compose, substitute 1.25.5 with the version of Compose you want to use.
+              </div>
+
+
+              给docker-compose可执行的权限：chmod +x /usr/local/bin/docker-compose
+
+
+              <h2 id="item-6-3">GUI管理<a href="https://www.portainer.io/installation/" target="_blank">Portainer</a></h2>
+
+              docker volume create portainer_data<br/>
+              docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer<br/>
+
+              登录<code>http://192.168.0.112:9000</code>连接到docker的监管页面
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

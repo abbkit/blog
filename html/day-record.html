@@ -1,0 +1,223 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>Day Record</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu" >
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">JAVA</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">JVM</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2">HBASE</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-2-1">Script</a>
+                    </nav>
+                    <a class="nav-link" href="#item-3">Zookeeper</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-3-1">Script</a>
+                    </nav>
+                    <a class="nav-link" href="#item-4">Hadoop</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-4-1">Script</a>
+                    </nav>
+                    <a class="nav-link" href="#item-5">Gateway</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-5-1">Script</a>
+                    </nav>
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content" >
+
+
+              <h1 id="item-1">JAVA</h1>
+              <h3 id="item-1-1">JVM</h3>
+
+              <p class="h4">DUMP(堆转储)文件</p>
+              <p>
+                  1.主动生成DUMP文件，运行<code>jmap -dump:live,format=b,file=heap-dump.dump ${pid}</code>
+              </p>
+              <p>
+                  2.启动JVM时添加<code>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${目录}</code>，在抛出OOM异常时自动生成DUMP文件
+              </p>
+
+              <p>
+                  可以使用<span class="font-weight-bold">MAT（Memory Analyzer Tool）</span>
+                  或者 <span class="font-weight-bold">jhat</span> 命令 (http://localhost:7000/) <br/>
+
+              </p>
+              <p>
+              <h4>jhat</h4>
+              <img src="img/jhat-1.png" width="1140px"/>
+              </p>
+
+              <p>
+
+              <h4>MAT</h4>
+              <img src="img/mat-1.png" width="1140px"/>
+              </p>
+
+
+              <h1 id="item-2">HBASE</h1>
+              <h3 id="item-2-1">Script</h3>
+              <p>
+                  <code>hbase hbck -fixMeta</code> #修复.META.表<br/>
+                  <code>hbase hbck -fixAssignments</code>#重新分配到各分区服务器regionserver<br/>
+                  <span class="font-italic">note:/hbase/data/default/ 为默认default schema下所有的表信息存储路径</span>
+              </p>
+
+              <h1 id="item-3">ZooKeeper</h1>
+              <h3 id="item-3-1">Script</h3>
+
+              <p> session timeout:
+                  <code>minSessionTimeout=45000
+                      maxSessionTimeout=90000</code>
+              </p>
+
+
+              <h1 id="item-4">Hadoop</h1>
+              <h3 id="item-4-1">Script</h3>
+
+              <p> 查看修复HDFS中损坏的块:<br/>
+                  <code>./hdfs fsck -list-corruptfileblocks<br/>
+                      ./hdfs fsck / | egrep -v '^\.+$' | grep -v eplica</code>
+              </p>
+
+
+
+
+
+              <h1 id="item-5">Gateway</h1>
+              <h3 id="item-5-1">Script</h3>
+
+
+              DispatchServlet -> HandlerExecutionChain(Interceptors around Handler) ->SimpleControllerHandlerAdapter
+              ->ZuulController(包装了ZuulServlet)->ZuulServlet
+
+              <pre>
+// Marks this request as having passed through the "Zuul engine", as opposed to servlets
+// explicitly bound in web.xml, for which requests will not have the same data attached
+RequestContext context = RequestContext.getCurrentContext();
+context.setZuulEngineRan();
+
+try {
+    preRoute();
+} catch (ZuulException e) {
+    error(e);
+    postRoute();
+    return;
+}
+try {
+    route();
+} catch (ZuulException e) {
+    error(e);
+    postRoute();
+    return;
+}
+try {
+    postRoute();
+} catch (ZuulException e) {
+    error(e);
+    return;
+}
+              </pre>
+              Zuul 通过ThreadLocal绑定RequestContext <code>RequestContext.getCurrentContext()</code>,
+              RequestContext里面有请求和响应的包装，
+              <span class="mark">aha，好像后面都是交给这个类来处理请求响应IO的吧？和之前写的Netty相似？</span><br/>
+
+
+              FilterLoader 根据filter-type（pre，route，post，error） 获取 ZuulFilter
+
+              Filter在线程中同步执行，虽然方法名称看起来有点异步的感觉<code>public Object run() throws ZuulException</code>
+              <div class="font-italic text-black-50 mark">
+                  ZuulFilterResult保护如下几个执行状态
+                  <ul>
+                      <li>SUCCESS</li>
+                      <li>SKIPPED</li>
+                      <li>DISABLED</li>
+                      <li>FAILED</li>
+                  </ul>
+              </div>
+
+              RibbonRoutingFilter 这个类比较重要啦，这个是Spring写的啦，这边去LVS啦。接下来要初始化出<code>RibbonCommand(Spring)</code>
+<pre>
+public interface RibbonCommandFactory&lt;T extends RibbonCommand> {
+    T create(RibbonCommandContext context);
+}
+</pre>
+              <div class="font-italic text-black-50 mark">
+                  * implements RibbonCommandFactory
+                  <ul>
+                      <li>OkHttpRibbonCommandFactory(Spring)</li>
+                      <li>HttpClientRibbonCommandFactory(Spring)</li>
+                      <li>RestClientRibbonCommandFactory(Spring)</li>
+                  </ul>
+              </div>
+
+              SpringClientFactory 这个类整合了Ribbon Load Balance 和Spring Context，能让LVS从Spring上下文中初始化。<br/>
+              到现在为止，我们的RibbonCommand出来了，顺带Hystrix也进来了，从代码中，我们发现Hystrix是需要ZuulProperties来初始化的。<br/>
+              啦啦啦~~~ 现在我们开始execute--------><br/>
+              首先Hystrix来了，增加isolate特性
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

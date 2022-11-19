@@ -1,0 +1,137 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>Frequent Record</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu" >
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">打包、部署</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">脚本</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2">CSS</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-2-1">脚本</a>
+                    </nav>
+                    <a class="nav-link" href="#item-3">JAVA</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-3-1">脚本</a>
+                    </nav>
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-1">打包、部署</h1>
+              <h2 id="item-1-1">脚本</h2>
+              <h3>Spring Boot Jar启动方式</h3>
+              <p>
+                  <code>nohup java -jar -Dspring.profiles.active=aliyun -DLEMON_FINAL_LOG_DIR=/work/blog-api/log blog-api-starter-3.0.1.jar 2>&1 >/dev/null &</code>
+              </p>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>-D 指定系统启动参数、环境变量等</li>
+                  </ul>
+              </div>
+
+              <h3>Log4j XML 动态参数</h3>
+              <p>
+                  <code>&lt;Property name="rollingDir"&gt;${sys:LEMON_FINAL_LOG_DIR}&lt;/Property&gt;</code>
+              </p>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>环境变量可以通过JVM启动参数-D设置</li>
+                  </ul>
+              </div>
+
+
+              <h3>Docker </h3>
+              <p>
+                  https://www.cnblogs.com/q149072205/p/11460566.html
+              </p>
+
+
+
+
+
+
+              <h1 id="item-2">CSS</h1>
+              <h2 id="item-2-1">脚本</h2>
+
+              <p>
+                  @media 查询
+                  我们在需要根据device的宽高动态定义某个div或者页面元素的宽高时。可以使用 calc , <code>min-height: calc(100vh - 180px);</code>
+              </p>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>vh -> viewport height (百分比,比如 1vh=1% ， 100vh=100%)</li>
+                      <li>vw -> viewport width (百分比,比如 1vw=1% ， 100vw=100%)</li>
+                  </ul>
+              </div>
+
+
+
+              <h1 id="item-3">JAVA</h1>
+              <h2 id="item-3-1">脚本</h2>
+              <p>
+                  <code>ps -p ${pid} -o rss,vsz</code>
+              </p>
+              <div class="font-italic text-black-50 mark">
+                  <ul>
+                      <li>VSZ是虚拟内存，RSS是实际使用的内存，单位KB</li>
+                  </ul>
+              </div>
+
+
+          </div>
+
+
+
+
+
+
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+

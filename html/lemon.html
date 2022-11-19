@@ -1,0 +1,395 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>对象存储 LEMON 柠檬存储 OSS文档 OSS手册 OSS帮助文档 OSS 对象存储文档  </title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="lemon"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu">
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">概述</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">架构</a>
+                        <a class="nav-link ml-3 my-1" href="#item-1-2">统一数据模型</a>
+                        <a class="nav-link ml-3 my-1" href="#item-1-3">数据存储引擎</a>
+                        <a class="nav-link ml-3 my-1" href="#item-1-4">抽象数据流</a>
+                        <a class="nav-link ml-3 my-1" href="#item-1-5">序列化/反序列化</a>
+                        <a class="nav-link ml-3 my-1" href="#item-1-6">分布式技术架构-Master Slave设计</a>
+                        <a class="nav-link ml-3 my-1" href="#item-1-7">授权、认证</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2">模块</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-2-1">分布式数据同步</a>
+                        <a class="nav-link ml-3 my-1" href="#item-2-2">RDBMS数据库导入</a>
+                        <a class="nav-link ml-3 my-1" href="#item-2-3">MR整合</a>
+                    </nav>
+                    <a class="nav-link" href="#item-3">Streaming</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-3-1">架构</a>
+                        <a class="nav-link ml-3 my-1" href="#item-3-2">用法</a>
+                    </nav>
+                    <a class="nav-link" href="#item-4">客户端SDK</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-4-1">数据</a>
+                        <a class="nav-link ml-3 my-1" href="#item-4-2">文件</a>
+                    </nav>
+                </nav>
+            </nav>
+        </div>
+
+          <div class="blog-content">
+            <div>
+          <h1><a class="" style="color: red;" href="http://lemon.ainobug.com:10088/static/index.html" target="_blank">在线演示</a></h1>
+            <h1 id="item-1">概述 </h1>
+            <p class="blog-text-indent">建立统一的数据存储平台，解决跨HBASE/HDFS/NOSQL和RDBMS数据存储系统时访问不一致，开发接口多样的问题。引入数据分层的理念，
+              在冷热数据处理上采取不同的策略，综合利用大数据存储和RDBMS数据存储的优势。通过Master Slave的架构设计，平台在高可用、线性扩展上继承了Hadoop生态的优点。</p>
+                <p class="blog-text-indent">
+
+                    结构化数据可以通过RDBMS数据库，比如MYSQL，很好的处理，这么多年来MYSQL做了很好，事务处理（ACID）她能够办到，
+                    在<code>数据隔离性</code>的需求不是很明朗的情况下，通常<code>Read Committed</code>是比较好的处理方式。<br/>
+                <div class="font-italic text-black-50 mark">
+                    ACID:原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）
+                    <ul>
+                        <li>读未提交（Read Uncommitted）</li>
+                        <li>读提交（Read Committed）</li>
+                        <li>可重复读（Repeated Read）</li>
+                        <li>串行化（Serializable）</li>
+                    </ul>
+                </div>
+                但是当我们有成千上万、上亿、TB、PB级的数据的时候，而且我们对数据也没有那么严谨的需求，传统数据库在事务上耗费了太多资源，
+                此时我们需要在资源利用率上的找到平衡点，NO-SQL数据库站在了这个平衡点上。我们选择了HBASE/HDFS作为我们的非结构化数据存储方案，基于如下理由
+                <div class="font-italic text-black-50 mark">
+                    <ul>
+                        <li>HDFS分布式文件存储系统解决跨多节点存储</li>
+                        <li>Hadoop生态，此前我们已经在Hadoop生态上花费了大半年的研究时间</li>
+                        <li>HBASE的高性能<code>随机读取</code>能力</li>
+                        <li>HBASE的HA高可用性线扩展能力理解起来比较简单</li>
+                        <li>可以通过HIVE无缝连接到其他的数据处理框架,比如<code>Impala, Hive On Spark</code></li>
+                        <li>通过<code>Phoenix</code>插件，可以使用LIKE-SQL操作</li>
+                    </ul>
+                </div>
+                刚刚上面也说了，我们可以通过<code>Phoenix</code>来操作HBASE，但是我认为<code>Phoenix</code>对HBASE的数据有侵入性，带来<code>数据膨胀</code>的问题（后面文章谈谈Phoenix的索引策略）。
+                </p>
+            <h3 id="item-1-1">架构</h3>
+            <img  src="/img/lemon-architecture.png" />
+            <h3 id="item-1-2">统一数据模型</h3>
+            <p class="blog-text-indent">由于分布式存储和RDBMS存储的数据结构差异大，查询模型不一致，往往导致复杂的接口调用；分布式存储一般基于Key-Value存储模型，
+              没有数据的范式定义，在主题库建设中需要元数据来表现数据。因此，通过在分布式存储的基础上提供动态伸缩的元数据定义，
+              提供了与RDBMS相似的范式数据定义，同时兼顾了大数据存储的高伸缩性。
+              </p>
+<pre>
+<h5>
+定义如下
+数据结构：JSON
+数据类型：
+    1.	string 字符类型
+    2.	int	整型
+    3.	long	 长整型
+    4.	double	浮点型
+    5.	boolean布尔型
+    6.	date 	日期类型，值为长整型（long）
+网络协议：TCP/HTTP
+</h5>
+</pre>
+                  <table class="table table-bordered" >
+                    <thead class="table-dark">
+                    <tr><td>参数</td><td>备注</td><td>值</td><td>值备注</td></tr>
+                    </thead>
+                    <tbody>
+
+                      <tr style="">
+                          <td>ope</td><td>操作类型</td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td rowspan="3">table</td><td rowspan="3">操作表的名称</td><td>insert</td><td>插入</td>
+                      </tr>
+                      <tr>
+                          <td>update</td><td>更新</td>
+                      </tr>
+                      <tr>
+                          <td>delete_row</td><td>删除</td>
+                      </tr>
+                      <tr>
+                          <td>cert</td><td>操作凭证</td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td rowspan="8">condition</td><td rowspan="8">操作条件</td><td>and</td><td>与</td>
+                      </tr>
+                      <tr>
+                          <td>or</td><td>或</td>
+                      </tr>
+                      <tr>
+                          <td>eq</td><td>等于</td>
+                      </tr>
+                      <tr>
+                          <td>ge</td><td>大于等于</td>
+                      </tr>
+                      <tr>
+                          <td>gt</td><td>大于</td>
+                      </tr>
+                      <tr>
+                          <td>lt</td><td>小于</td>
+                      </tr>
+                      <tr>
+                          <td>le</td><td>小于等于</td>
+                      </tr>
+                      <tr>
+                          <td>lk</td><td>相似</td>
+                      </tr>
+                      <tr>
+                          <td>result</td><td>返回的字段和字段类型</td><td></td><td></td>
+                      </tr>
+                      <tr>
+                          <td rowspan="6">type</td><td rowspan="6">字段数据类型</td><td>string</td><td>字符类型</td>
+                      </tr>
+                      <tr>
+                          <td>int</td><td>整型</td>
+                      </tr>
+                      <tr>
+                          <td>long</td><td>长整型</td>
+                      </tr>
+                      <tr>
+                          <td>double</td><td>浮点型</td>
+                      </tr>
+                      <tr>
+                          <td>boolean</td><td>布尔型</td>
+                      </tr>
+                      <tr>
+                          <td>date</td><td>日期类型，值为长整型（long）</td>
+                      </tr>
+                  </tbody>
+                </table>
+                <h3 id="item-1-3">数据存储引擎</h3>
+                <p class="blog-text-indent">
+                    存储引擎以插件的形式在引擎中心（Engine Hub）注册，Engine Hub负责引擎生命周期的管理。引擎选择器根据不同的存储要求选择相应的存储引擎。
+                <div class="mark">
+                    <ul>
+                        <li>引擎中心（Engine Hub）</li>
+                            <ul>
+                                <li>HDFS存储引擎</li>
+                                <li>HBASE存储引擎</li>
+                                <li>RDBMS存储引擎</li>
+                            </ul>
+                        <li>引擎选择器</li>
+                        <li>插件化开发</li>
+                    </ul>
+
+                </div>
+
+                </p>
+                <h3 id="item-1-4">抽象数据流</h3>
+                <p class="blog-text-indent">
+                    数据的进进出出抽象出数据流的概念，与此相应的我们有个<code>数据管道</code>的设计，数据管道设计成单向的，双向管道采用通过包装单向管道的方式。
+                    在管道中流动的数据通过<code>数据转换器(正向/逆向)</code>转换成统一的数据结构/相应的数据结构（外部数据源）。根据管道不同的数据源，我们把管道分为多种形式
+                <ul>
+                    <li>RDBMS管道</li>
+                    <li>KAFKA管道</li>
+                    <li>HTTP管道</li>
+                    <li>MQ管道</li>
+                    <li>File管道</li>
+                </ul>
+                <div class="mark">
+                    <ul>
+                        <li>数据管道，单向和双向</li>
+                        <li>数据管道的种类</li>
+                        <li>数据转换器，包括正向转换器和逆向转换器</li>
+                    </ul>
+                </div>
+
+                <h3 id="item-1-5">序列化/反序列化</h3>
+                <p class="blog-text-indent">
+                    使用可读性更好的JSON序列化方案，有如下几点优势和劣势
+                <div class="row">
+                    <div class="col-6">
+                        <h5>优势</h5>
+                        <ul>
+                            <li>结构良好</li>
+                            <li>有效数据占比高，适合网络传输</li>
+                            <li>数据结构可验证，预发现错误</li>
+                            <li>适用面广，比如目前有的数据库也支持JSON结构了</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h5>劣势</h5>
+                        <ul>
+                            <li>序列化/反序列化耗时</li>
+                            <li>结构不紧凑</li>
+                            <li>元数据信息过多</li>
+                        </ul>
+                    </div>
+                    <div class="font-italic text-black-50 mark">
+                        可以参考其他的方案，比如 <code class="font-weight-bold">Kryo XML ProtoBuff </code>
+                    </div>
+                </div>
+
+                </p>
+                <h3 id="item-1-6">分布式技术架构-Master Slave设计</h3>
+                <p class="blog-text-indent">
+                    鉴于Hadoop生态在线性扩展上良好的支持，HBASE架构在数据上的清晰处理，因此我们这个项目也采用类似HBASE的架构设计。为做到此架构下的伸缩性，保证如下几点
+                <ul>
+                    <li>Worker节点状态保证Stateless</li>
+                    Stateless能够保证worker节点永远可以fail-fast，且对整个集群的状态不会有影响。鉴于此设计目的，我们需要保证在Worker节点上处理的任务是支持stateless的
+                    <li>Master保证HA</li>
+                    通过Zookeeper的leader latch机制以及fast failover机制，我们能够切换到另外一个Backup的Master来支撑HA
+                    <li>Backup Master保证和Master数据的同步以及状态一致的机制</li>
+                    数据同步我们采用如下几个机制来保证<br/>
+                    1）同步点记录在ZK中<br/>
+                    2）如果Master有些数据在ZK中不能记录，我们通过<span class="font-weight-bold">“有序同步记录”</span>的方式，
+                    在Active-Backup之间同步，通过序列号保证同步状态一致
+
+                </ul>
+
+                </p>
+                <h3 id="item-1-7">授权、认证</h3>
+                <p class="blog-text-indent">
+                    这里我们摒弃中心化存储策略，比如<code>Redis session共享</code>，采用<code>JWT</code>的方式来处理请求的授权、认证问题。
+                </p>
+
+            <h1 id="item-2">模块</h1>
+            <p></p>
+            <h3 id="item-2-1">分布式数据同步</h3>
+            <p class="blog-text-indent">平台会把最近的数据同步到RDBMS数据库中，实现数据的分层。而且可以利用RDBMS数据库提供的计算能力，
+              比如聚合、计数、排序等，对小量的热数据做数据上的在线分析。平台通过Master分发表同步任务给相应的Worker来执行数据的同步。</p>
+              <img src="/img/dsync-flow.png" />
+                <h4>同步策略</h4>
+                <h3>Master同步任务产生策略</h3>
+                <div class="pl-4">
+                <h4>1.滚动同步策略</h4>
+                <p class="blog-text-indent">
+                    采取小片段的增量同步策略，能够分散数据同步的压力，避免大量数据同步时数据积压的问题，能够稳定系统的运行，时间片段可以通过配置文件配置（列出部分）
+                </p>
+                <h4>2.手动同步策略</h4>
+                <p class="blog-text-indent">
+                    支持用户在Lemon管理页面上自定义时间段的同步需求
+                </p>
+                </div>
+                <h3>Worker执行同步任务策略</h3>
+                <div class="pl-4">
+                <h4>1.异步策略</h4>
+                <p class="blog-text-indent">
+                    异步策略使用X-STREAM模块通过PUB-SUB模式异步同步数据，有着高吞吐量，但是不能保证数据同步一致性。因为同步完成通知事件是在加载完数据之后就产生了。
+                </p>
+                <h4>2.强制同步策略</h4>
+                <p class="blog-text-indent">
+                    强制同步策略利用SQL批插入时性能比较高的特性，在一个事务中执行全删全增操作，在同步到RDBMS数据库之后才产生同步完成事件，保证了数据同步一致性。
+                </p>
+                </div>
+
+
+
+
+
+            <h3 id="item-2-2">RDBMS数据库导入</h3>
+            <p class=" h4">Lemon Import Data Job,MYSQL/MSSQL/ORACLE/PG</p>
+            <P>
+              <p>1. 数据源<code>{sourceMapping.source}</code>可以从<a href="../../datasource.html" target="_blank">Data Source</a>中获取;
+                目标表<code>toMapping.targetTable</code>必须在Lemon中存在<a href="../../admin.html" target="_blank">Create Table</a>；
+                必须配置主键：<code>toMapping.rowKey</code>,且主键类型会转换为string
+                <br/>
+                2. 全量同步：配置 "pageSize","position","pageSql" <br/>
+                <pre>
+          "taskConfig": {
+              "pageSql": "select * from lemon_meta_flow_task_instance order by cf_lemonRowTime limit ?,?",
+              "pageSize": 1000,
+              "position": 0
+          }
+        </pre>
+                3.增量同步：配置 timeOffset, latestStartTime, affectFactoryParam, delayTime ,pageSql
+                增量同步必须有一个时间字段，且区间必须为${start},${end};
+                latestStartTime : 增量起始时间
+                timeOffset: 增量时间步长（毫秒）
+                delayTime: 距离系统时间<code>System.currentTimeMillis()</code>延迟时长（毫秒）
+                <br/>
+                <pre>
+          "taskConfig": {
+              "pageSql": "select * from lemon_meta_flow_task_instance where cf_lemonRowTime>=${start} and cf_lemonRowTime<${end} order by cf_lemonRowTime limit ?,?",
+              "latestStartTime": now(),
+              "timeOffset": 60000,
+              "delayTime": 0,
+              "affectFactoryParam": "{\"column\":\"cf_lemonrowtime\",\"time\":true}"
+          }
+        </pre>
+                4.<code>taskId</code>为你提交任务的唯一标识，可以通过<code>lemon_row_id=${taskId}</code>查询你的任务状态，且也是stream hub中的topology的唯一标识<br/>
+                5.字段值配置：<code>toMapping.cellMapping.sourceValue=literal|${cf_log}|function()</code>受支持的函数:<br/>
+        <pre>
+          1) concat():${code},${name},-
+          2) sysdate()
+          3) uuid()
+          4) sequence():1
+        </pre>
+                6. 任务完成之后，Close Job
+        <pre>
+          1) Close Stream in Stream Hub
+          2) release stream executor to pool & release all file lock...
+          3) Persist stream information
+        </pre>
+              </p>
+              <p>参考同步任务JOB JSON <a href="/file/import-data-template.json" target="_blank">import-data-tempate.json</a></p>
+            </P>
+
+            <h3 id="item-2-3">MR整合</h3>
+            <p class="blog-text-indent">基于MapReduce计算架构，可以高效处理HBase中的数据，通过在Lemon环境中整合MR，可以方便地管理基于HBase的MR应用。</p>
+            <h1 id="item-3">Streaming</h1>
+            <h3 id="item-3-1">架构</h3>
+            <img src="/img/lemon-streaming-architecture.png" />
+            <h3 id="item-3-2">用法</h3>
+            <p class="blog-text-indent">参考基础框架中X-Stream模块的数据处理</p>
+            <h1 id="item-4">客户端SDK</h1>
+            <p class="blog-text-indent">下载客户端SDK使用文档
+              <a href="/file/Lemon客户端开发手册.docx" target="_bank">客户端开发手册.docx</a>
+
+            </p>
+
+            <h3 id="item-4-1">数据</h3>
+            <p class="blog-text-indent">参考“客户端开发手册.docx”</p>
+            <h3 id="item-4-2">文件</h3>
+            <p class="blog-text-indent">参考“客户端开发手册.docx”</p>
+          </div>
+
+          </div>
+
+
+
+    
+    
+    
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+
+

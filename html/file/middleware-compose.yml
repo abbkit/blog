@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  mysql-scale:
+    image: mysql:5.7.23
+    container_name: mysql-scale
+    hostname: mysql-scale
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=jiazhongjin
+    volumes:
+      - "/work/mysql/init/:/docker-entrypoint-initdb.d/"
+      - "/work/mysql/data/:/var/lib/mysql/"
+      - "/work/mysql/logs/:/var/log/mysql/"
+      - "/work/mysql-backup/:/etc/mysql/conf.d/"
+    ports:
+      - "10021:10020"
+    restart: always
+networks:
+  default:
+    external:
+      name: jiazhongjin

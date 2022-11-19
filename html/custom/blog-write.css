@@ -1,0 +1,171 @@
+
+.blog-write-main {
+    width: 100%;
+    padding: 1rem  3rem !important;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: calc(100vh - 90px);
+
+    counter-reset: qa;
+
+
+}
+
+.blog-write-main .blog-menu{
+
+}
+
+.blog-write-main .blog-content{
+
+}
+
+.blog-write-main img{
+    width: 100%;
+}
+
+.blog-content pre{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+
+@media (max-width: 992px) {
+    .blog-write-main {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .blog-write-main .blog-menu{
+        display: none !important;
+    }
+
+    .blog-write-main .blog-content{
+        margin-left: 0px;
+        width: 100%;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .blog-write-main .blog-menu{
+        position: fixed !important;
+        width: 240px;
+    }
+
+    .blog-write-main .blog-content{
+        margin-left: 260px;
+        max-width: calc(100vw - 260px - 6rem); /*6rem为外面包裹的多个div的padding值*/
+    }
+
+}
+
+@media (min-width: 1200px) {
+    .blog-write-main .blog-content img{
+        max-width: 1080px;
+    }
+}
+
+
+.blog-write-main h1 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main h2 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main h3 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main h4 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main h5 ~ p {
+    text-indent: 35px;
+}
+
+.blog-write-main .h1 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main .h2 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main .h3 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main .h4 ~ p {
+    text-indent: 35px;
+}
+.blog-write-main .h5 ~ p {
+    text-indent: 35px;
+}
+
+
+.blog-write-main .blog-qa-list{
+    counter-reset: qa;
+}
+
+
+.blog-write-main .blog-qa-list .blog-qa{
+
+    padding: 1rem 0;
+
+
+}
+
+.blog-write-main .blog-qa-list .blog-qa .blog-q:before{
+    counter-increment: qa;
+    content: counter(qa)'.Q:' ;
+    font-size:1.3rem;
+    font-weight: 700;
+    padding-right: 0.5rem;
+    margin-left: -4rem;
+    position: absolute;
+    line-height: 1.5rem;
+    min-width:4rem;
+    text-align: right;
+}
+
+.blog-write-main .blog-qa-list .blog-qa .blog-q{
+    margin-left: 4rem;
+
+}
+
+
+.blog-write-main .blog-qa-list .blog-qa .blog-a:before{
+    content: 'A:';
+    font-size:1.3rem;
+    font-weight: 700;
+    padding-right: 0.5rem;
+    margin-left: -4rem;
+    position: absolute;
+    line-height: 1.5rem;
+    min-width:4rem;
+    text-align: right;
+
+}
+
+.blog-write-main .blog-qa-list .blog-qa .blog-a{
+
+    margin-left: 4rem;
+
+
+}
+
+.text-red {
+    color: red !important;
+}
+
+.blog-write-main .img-scale-size{
+    width: 320px;
+    height: 320px;
+}
+
+
+
+
+
+
+
+
+
+

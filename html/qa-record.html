@@ -1,0 +1,193 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/custom/blog.css" >
+      <link rel="stylesheet" href="/custom/blog-write.css" >
+    <title>QA Record</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
+
+    <blogHeader data-item="record"></blogHeader>
+
+    <main class="blog-write-main">
+        <div class="blog-menu" >
+            <nav id="navbar-example3" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1">QA</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-1">Git</a>
+                    </nav>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-2">CSS</a>
+                    </nav>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-3 my-1" href="#item-1-3">Redis</a>
+                    </nav>
+                </nav>
+
+
+            </nav>
+        </div>
+
+          <div class="blog-content">
+
+
+              <h1 id="item-1">QA</h1>
+              <h2 id="item-1-1">Git</h2>
+
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          Git 下载代码提示SSL certificate problem: self signed certificate in certificate chain解决方法
+                      </div>
+                      <div class="blog-a">
+                          <code>git config --global http.sslVerify false</code>
+                      </div>
+                  </div>
+
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          git merge了错误分支，如何优雅的回退到merge前的状态?
+                      </div>
+                      <div class="blog-a">
+                          如果没有push的话，可以执行<code>git reset --hard 'commit id'</code>,
+                          清空暂存区，销毁数据，如果没有推送到远程，数据就会被覆盖无法恢复，如果已推送远程，可以通过 reflog 找回。
+                      </div>
+                  </div>
+
+              </div>
+
+
+              <h2 id="item-1-2">CSS</h2>
+
+              <div class="blog-qa-list">
+
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          CSS中input输入框，在定义border的情况下，如果border-color定义为transparent,会导致border线条显示不出来，
+                          出现input在获得焦点的时候边框缩小
+                      </div>
+                      <div class="blog-a">
+                          border: 1px solid #ced4da;<br/>
+                          background-color: #ffffff;  /*不能定义transparent*/
+                      </div>
+                  </div>
+
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          CSS中:before 等选择器里面的content属性标识的内容是属于:before作用于的元素的
+                      </div>
+                      <div class="blog-a">
+                          在每一段文字前面通过CSS自动增加标识的时候，我们需要把:before的样式设置成 <code>position: absolute;</code>,从当前文档流
+                          中拉出来
+                      <div class="font-italic text-black-50 mark">
+<pre>
+    .blog-write-main .blog-qa-list .blog-qa .blog-q:before{
+        counter-increment: qa;
+        content: counter(qa)'.Q:' ;
+        font-size:1.3rem;
+        font-weight: 700;
+        padding-right: 0.5rem;
+        margin-left: -4rem;
+        position: absolute;
+        line-height: 1.5rem;
+        min-width:4rem;
+        text-align: right;
+    }
+</pre>
+                  </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <h2 id="item-1-3">Redis</h2>
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          redis安装-致命错误：jemalloc/jemalloc.h：没有那个文件或目录
+                      </div>
+                      <div class="blog-a">
+                          执行命令：
+
+                          <code>make MALLOC=libc</code>
+                      </div>
+                  </div>
+
+
+              </div>
+
+
+              <h2 id="item-1-4">Mybatis</h2>
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          statement not found.
+                      </div>
+                      <div class="blog-a">
+                          这种情况下，首先检查mapper scan有没有扫描到想要的mapper定义，
+                          第二，如果你的statement是在xml里面定义的，检查<code>mapper-locations</code>定义的路径下是否存在xml定义，
+                          <span class="text-red">并确保定义的文件在classes路径中存在，即能从classpath里面扫描到</span>。
+
+                          <div class="font-italic text-black-50 mark">
+                              如果使用idea工具，请确认target/classes (MAVEN) 路径下是否存在xml文件(statement sql定义在文件中)
+                          </div>
+                      </div>
+                  </div>
+
+
+              </div>
+
+              <h2 id="item-1-5">Maven</h2>
+              <div class="blog-qa-list">
+                  <div class="blog-qa">
+                      <div class="blog-q">
+                          并行编译
+                      </div>
+                      <div class="blog-a">
+                          mvn -T 1C clean install -Dmaven.test.skip=true -Dmaven.compile.fork=true
+                      </div>
+                  </div>
+
+
+              </div>
+          </div>
+
+
+
+
+
+
+  </main>
+
+    <blogFooter></blogFooter>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/popper/popper.min.js" ></script>
+    <script src="/bootstrap/js/bootstrap.min.js" ></script>
+    <script src="/custom/blog.js" ></script>
+  </body>
+</html>
+<script>
+
+
+//$('[data-spy="scroll"]').on('activate.bs.scrollspy', function () {
+//  // do something...
+//})
+
+</script>
+
