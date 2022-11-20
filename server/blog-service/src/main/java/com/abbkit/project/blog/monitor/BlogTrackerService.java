@@ -1,4 +1,4 @@
-package com.abbkit.project.blog.collect;
+package com.abbkit.project.blog.monitor;
 
 import com.abbkit.kernel.async.AsyncTaskExecutor;
 import com.abbkit.kernel.async.SimpleAsyncTaskExecutor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * Created by J on 2020/3/25.
  */
 @Component
-public class TrackService {
+public class BlogTrackerService {
 
     private AsyncTaskExecutor asyncTaskExecutor= SimpleAsyncTaskExecutor.SIMPLE;
 

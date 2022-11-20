@@ -66,6 +66,7 @@ public class IndexFiles implements Index {
         final Path docDir = Paths.get(docsPath);
         if (!Files.isReadable(docDir)) {
             log.error("Document directory '" + docDir.toAbsolutePath() + "' does not exist or is not readable, please check the path");
+            log.error("jvm exit:-1");
             ShutdownHookManager.get().exit(-1);
         }
 

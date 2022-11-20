@@ -1,4 +1,4 @@
-package com.abbkit.project.blog.blogsearch;
+package com.abbkit.project.blog.search;
 
 import com.abbkit.kernel.async.AsyncTaskExecutor;
 import com.abbkit.kernel.async.SimpleAsyncTaskExecutor;
@@ -7,12 +7,13 @@ import com.abbkit.kernel.util.StringUtils;
 import com.abbkit.lemon.client.DefaultClient;
 import com.abbkit.lemon.client.DefaultClients;
 import com.abbkit.lemon.client.kv.insert.KVModelInserter;
+import com.abbkit.module.xsearch.Index;
 import com.abbkit.module.xsearch.Search;
 import com.abbkit.module.xsearch.file.FileDoc;
+import com.abbkit.module.xsearch.file.IndexFiles;
 import com.abbkit.module.xsearch.file.SearchFiles;
 import com.abbkit.project.blog.BlogCons;
-import com.abbkit.project.blog.NoTrack;
-import com.abbkit.project.blog.collect.TrackService;
+import com.abbkit.project.blog.monitor.BlogTrackerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,27 +37,28 @@ public class SearchController {
     @Value("${abbkit.module.index.docsPath}")
     private String docsPath;
     private Search search;
-@Autowired
-    private IndexService indexService;
+
+    private Index index;
 
     private DefaultClient defaultClient= DefaultClients.option();
 
     private AsyncTaskExecutor asyncTaskExecutor=SimpleAsyncTaskExecutor.SIMPLE;
-@Autowired
-    private TrackService trackService;
-@PostConstruct
+    @Autowired
+    private BlogTrackerService blogTrackerService;
+
+    @PostConstruct
     public void init(){
-    search=new SearchFiles(indexFilePath);
+        search=new SearchFiles(indexFilePath);
+        index=new IndexFiles(indexFilePath,docsPath,true);
     }
 
     @ResponseBody
-    @NoTrack
     @GetMapping(path= "search")
     public synchronized ResponseModel search(@RequestParam("query") String query, HttpServletRequest request)throws Exception{
 
         String unique=request.getHeader(BlogCons.HEADER_BLOG_UNIQUE);
 
-        trackService.track(unique,"/search:"+query);
+        blogTrackerService.track(unique,"/search:"+query);
 
         if(query.contains("/")
                 ||query.contains("\\")
@@ -90,7 +92,7 @@ public class SearchController {
     @ResponseBody
     @GetMapping(path = "index")
     public synchronized ResponseModel index()throws Exception{
-        indexService.index();
+        index.index();
         return ResponseModel.newSuccess(true);
     }
 

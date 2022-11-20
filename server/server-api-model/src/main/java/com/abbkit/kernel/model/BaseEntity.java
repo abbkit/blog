@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 /**
- *
+ * 数据库表基础模型
  * @author J
  */
 @Data

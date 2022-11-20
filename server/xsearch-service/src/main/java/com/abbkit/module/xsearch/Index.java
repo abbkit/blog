@@ -5,6 +5,9 @@ package com.abbkit.module.xsearch;
  */
 public interface Index {
 
+    /**
+     * 生成索引
+     */
     void index();
 
 }

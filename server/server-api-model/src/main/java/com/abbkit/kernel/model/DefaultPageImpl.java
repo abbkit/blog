@@ -3,6 +3,8 @@
  */
 package com.abbkit.kernel.model;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @author J
  */
+@Data
 public class DefaultPageImpl<T> implements Page<T> {
 	
 	private long totalRecordNumber=Long.MAX_VALUE;
@@ -26,54 +29,16 @@ public class DefaultPageImpl<T> implements Page<T> {
 		return totalRecordNumber;
 	}
 
-
-	public void setTotalRecordNumber(long totalRecordNumber) {
-		this.totalRecordNumber = totalRecordNumber;
-	}
-
-
-
 	public int totalPageNumber() {
 		return totalPageNumber;
 	}
-
-
-	public void setTotalPageNumber(int totalPageNumber) {
-		this.totalPageNumber = totalPageNumber;
-	}
-
 
 	public Pageable pageable() {
 		return pageable;
 	}
 
-
-	public void setPageable(Pageable pageable) {
-		this.pageable = pageable;
-	}
-
 	public List<T> data(){
 		return Collections.unmodifiableList(data);
-	}
-
-	public void setData(List<T> data) {
-		this.data = data;
-	}
-
-	public long getTotalRecordNumber() {
-		return totalRecordNumber;
-	}
-
-	public int getTotalPageNumber() {
-		return totalPageNumber;
-	}
-
-	public Pageable getPageable() {
-		return pageable;
-	}
-
-	public List<T> getData() {
-		return data;
 	}
 
 	@Override

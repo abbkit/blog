@@ -1,10 +1,10 @@
 abbkit:
   lemon:
     server :
-      master: 120.55.161.205:10088
-      worker: 120.55.161.205:8000
+      master: lemon.abbkit.com:10088
+      worker: lemon.abbkit.com:8000
     proxy:
-      host: 120.55.161.205
+      host: lemon.abbkit.com
       port: 8000
   client:
     thread:

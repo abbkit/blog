@@ -1,33 +1,19 @@
 package com.abbkit.module.xsearch.file;
 
 import com.abbkit.module.xsearch.BaseDoc;
+import lombok.Data;
 
 import java.util.Map;
 
 /**
  * Created by J on 2020/3/22.
  */
+@Data
 public class FileDoc extends BaseDoc {
 
     private String uri;
 
     private String content;
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     @Override
     public String uri() {
