@@ -1,4 +1,4 @@
-package com.abbkit.project.blog.collect;
+package com.abbkit.project.blog.monitor;
 
 import cn.hutool.http.useragent.Browser;
 import cn.hutool.http.useragent.UserAgent;
@@ -36,8 +36,8 @@ import java.util.List;
 @RequestMapping(BlogCons.PATH_PREFIX + "/access")
 public class BlogNodeController {
     private DefaultClient defaultClient = DefaultClients.option();
-@Autowired
-    private TrackService trackService;
+    @Autowired
+    private BlogTrackerService blogTrackerService;
 
     private Row2ModelTransform<BlogNode> blogNodeRow2ModelTransform = new Row2ModelTransform<>(BlogNode.class);
 
@@ -103,7 +103,7 @@ public class BlogNodeController {
         String unique = request.getHeader(BlogCons.HEADER_BLOG_UNIQUE);
         if (StringUtils.isNullOrEmpty(url)) return ResponseModel.newSuccess(true);
 
-        trackService.track(unique, url);
+        blogTrackerService.track(unique, url);
 
         return ResponseModel.newSuccess(true);
     }
@@ -162,8 +162,7 @@ public class BlogNodeController {
     private List<BlogNode> latest() {
 
         DirectAndModel directAndModel = new DirectAndModel();
-        AndModel andModel = directAndModel
-                .build();
+        AndModel andModel = directAndModel.build();
 
         KVQueryModel kvQueryModel = new KVQueryModel();
         kvQueryModel.setCondition(andModel);

@@ -1,4 +1,4 @@
-package com.abbkit.project.blog.collect;
+package com.abbkit.project.blog.monitor;
 
 import com.abbkit.lemon.client.kv.KVBaseModel;
 import com.abbkit.lemon.data.TypeString;

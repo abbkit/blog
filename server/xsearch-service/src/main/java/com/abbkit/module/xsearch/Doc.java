@@ -7,12 +7,28 @@ import java.util.Map;
  */
 public interface Doc {
 
+    /**
+     * document score
+     * @return
+     */
     float score();
 
+    /**
+     * document uri, file path / http path
+     * @return
+     */
     String uri();
 
+    /**
+     * document content
+     * @return
+     */
     String content();
 
+    /**
+     * document meta data
+     * @return
+     */
     Map<String, Object> meta();
 
 
