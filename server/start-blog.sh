@@ -7,7 +7,7 @@ docker rmi $(docker images --filter dangling=true -q)
 # 会删除24小时前的虚悬镜像
 docker image prune -f --filter until=24h
 
-cd blog
+cd blog/server
 git pull
 docker stop abbkit
 docker rm abbkit
