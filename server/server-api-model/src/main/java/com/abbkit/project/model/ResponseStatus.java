@@ -1,4 +1,4 @@
-package com.abbkit.kernel.model;
+package com.abbkit.project.model;
 
 public enum ResponseStatus {
 

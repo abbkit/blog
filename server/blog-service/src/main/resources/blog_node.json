@@ -1,7 +1,7 @@
 {
   "ope": "admin_put_table",
   "cert": null,
-  "engine": "HBASE",
+  "engine": "MYSQL",
   "tableMeta": {
     "schema": "hot",
     "tableName": "blog_node",
@@ -17,11 +17,11 @@
     "syncCount": 0,
     "ttl": 0,
     "properties": null,
-    "engine": "HBASE"
+    "engine": "MYSQL"
   },
   "columnMetas": [
     {
-      "columnName": "cf:seq",
+      "columnName": "seq",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",
@@ -30,7 +30,7 @@
       "primary": 1
     },
     {
-      "columnName": "cf:accessTime",
+      "columnName": "accessTime",
       "type": "date",
       "schema": "hot",
       "tableName": "blog_node",
@@ -38,7 +38,7 @@
       "length": 0
     },
     {
-      "columnName": "cf:browser",
+      "columnName": "browser",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",
@@ -46,7 +46,7 @@
       "length": 255
     },
     {
-      "columnName": "cf:holdTime",
+      "columnName": "holdTime",
       "type": "int",
       "schema": "hot",
       "tableName": "blog_node",
@@ -54,7 +54,7 @@
       "length": 0
     },
     {
-      "columnName": "cf:ip",
+      "columnName": "ip",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",
@@ -62,15 +62,7 @@
       "length": 255
     },
     {
-      "columnName": "cf:lemonRowTime",
-      "type": "date",
-      "schema": "hot",
-      "tableName": "blog_node",
-      "desc": "lemon row time",
-      "length": 20
-    },
-    {
-      "columnName": "cf:userAgent",
+      "columnName": "userAgent",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",

@@ -1,8 +1,8 @@
 package test.com.abbkit.module.xsearch;
 
-import com.abbkit.module.xsearch.file.FileDoc;
-import com.abbkit.module.xsearch.file.IndexFiles;
-import com.abbkit.module.xsearch.file.SearchFiles;
+import com.abbkit.project.module.xsearch.file.FileDoc;
+import com.abbkit.project.module.xsearch.file.IndexFiles;
+import com.abbkit.project.module.xsearch.file.SearchFiles;
 import org.junit.Assert;
 import org.junit.Test;
 

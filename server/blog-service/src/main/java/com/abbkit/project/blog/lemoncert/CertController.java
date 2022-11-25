@@ -1,7 +1,7 @@
 package com.abbkit.project.blog.lemoncert;
 
 import com.abbkit.kernel.json.JJSON;
-import com.abbkit.kernel.model.ResponseModel;
+import com.abbkit.project.model.ResponseModel;
 import com.abbkit.kernel.security.RSA;
 import com.abbkit.module.cluster.ak.master.auth.AKFromStreamGetter;
 import com.abbkit.module.cluster.cert.SignCert;

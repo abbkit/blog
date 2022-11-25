@@ -1,4 +1,4 @@
-package com.abbkit.module.xsearch;
+package com.abbkit.project.module.xsearch;
 
 
 import com.abbkit.kernel.model.Model;

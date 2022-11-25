@@ -1,4 +1,4 @@
-package com.abbkit;
+package com.abbkit.project;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration
 //@Import({ SomeConfiguration.class, AnotherConfiguration.class })
 @EnableScheduling
-@ComponentScan("com.abbkit")
+@ComponentScan("com.abbkit.project")
 @MapperScan("com.abbkit.project.*.*.mapper")
 public class Application {
 

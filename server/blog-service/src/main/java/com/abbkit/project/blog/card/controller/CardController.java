@@ -1,7 +1,7 @@
 package com.abbkit.project.blog.card.controller;
 
-import com.abbkit.kernel.model.ResponseModel;
-import com.abbkit.kernel.model.SimplePageRequest;
+import com.abbkit.project.model.ResponseModel;
+import com.abbkit.project.model.SimplePageRequest;
 import com.abbkit.project.blog.BlogCons;
 import com.abbkit.project.blog.card.po.CardEntity;
 import com.abbkit.project.blog.card.service.CardService;

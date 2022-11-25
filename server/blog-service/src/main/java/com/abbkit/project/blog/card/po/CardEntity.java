@@ -1,6 +1,6 @@
 package com.abbkit.project.blog.card.po;
 
-import com.abbkit.kernel.model.BaseEntity;
+import com.abbkit.project.model.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;

@@ -1,9 +1,9 @@
 package com.abbkit.project.blog.search;
 
+import com.abbkit.lemon.client.model.HBaseBaseModel;
 import com.abbkit.lemon.data.annotation.Column;
 import com.abbkit.lemon.data.annotation.Table;
 import com.abbkit.lemon.data.type.TypeDef;
-import com.abbkit.lemon.server.model.KVBaseModel;
 import lombok.Data;
 
 /**
@@ -11,12 +11,12 @@ import lombok.Data;
  */
 @Data
 @Table(name = "blog_keyword")
-public class BlogKeyWord extends KVBaseModel {
+public class BlogKeyWord extends HBaseBaseModel {
 
-    @Column(name = "seq")
+    @Column(name = "cf:seq")
     private String seq;
 
-    @Column(name = "switch",type = TypeDef.BOOLEAN)
+    @Column(name = "cf:switch",type = TypeDef.BOOLEAN)
     private boolean switchKeyword=true;
 
 

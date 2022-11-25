@@ -1,6 +1,6 @@
 package test.com.abbkit.module.xsearch;
 
-import com.abbkit.module.xsearch.file.HTMLContentExtract;
+import com.abbkit.project.module.xsearch.file.HTMLContentExtract;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;

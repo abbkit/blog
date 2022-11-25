@@ -1,4 +1,4 @@
-package com.abbkit.kernel.model;
+package com.abbkit.project.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;

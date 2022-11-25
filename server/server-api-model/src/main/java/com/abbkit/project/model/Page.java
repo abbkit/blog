@@ -1,4 +1,4 @@
-package com.abbkit.kernel.model;
+package com.abbkit.project.model;
 
 import java.util.List;
 import java.util.function.Consumer;

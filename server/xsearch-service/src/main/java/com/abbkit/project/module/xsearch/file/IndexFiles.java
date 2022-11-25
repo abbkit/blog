@@ -1,7 +1,7 @@
-package com.abbkit.module.xsearch.file;
+package com.abbkit.project.module.xsearch.file;
 
 import com.abbkit.kernel.util.ShutdownHookManager;
-import com.abbkit.module.xsearch.Index;
+import com.abbkit.project.module.xsearch.Index;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;

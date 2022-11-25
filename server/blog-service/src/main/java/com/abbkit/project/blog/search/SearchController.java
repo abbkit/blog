@@ -2,18 +2,18 @@ package com.abbkit.project.blog.search;
 
 import com.abbkit.kernel.async.AsyncTaskExecutor;
 import com.abbkit.kernel.async.SimpleAsyncTaskExecutor;
-import com.abbkit.kernel.model.ResponseModel;
 import com.abbkit.kernel.util.StringUtils;
 import com.abbkit.lemon.client.DefaultClient;
 import com.abbkit.lemon.client.DefaultClients;
 import com.abbkit.lemon.client.kv.insert.KVModelInserter;
-import com.abbkit.module.xsearch.Index;
-import com.abbkit.module.xsearch.Search;
-import com.abbkit.module.xsearch.file.FileDoc;
-import com.abbkit.module.xsearch.file.IndexFiles;
-import com.abbkit.module.xsearch.file.SearchFiles;
 import com.abbkit.project.blog.BlogCons;
 import com.abbkit.project.blog.monitor.BlogTrackerService;
+import com.abbkit.project.model.ResponseModel;
+import com.abbkit.project.module.xsearch.Index;
+import com.abbkit.project.module.xsearch.Search;
+import com.abbkit.project.module.xsearch.file.FileDoc;
+import com.abbkit.project.module.xsearch.file.IndexFiles;
+import com.abbkit.project.module.xsearch.file.SearchFiles;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,9 +55,7 @@ public class SearchController {
     @ResponseBody
     @GetMapping(path= "search")
     public synchronized ResponseModel search(@RequestParam("query") String query, HttpServletRequest request)throws Exception{
-
         String unique=request.getHeader(BlogCons.HEADER_BLOG_UNIQUE);
-
         blogTrackerService.track(unique,"/search:"+query);
 
         if(query.contains("/")
@@ -75,8 +73,13 @@ public class SearchController {
         asyncTaskExecutor.submit(()->{
             KVModelInserter modelInserter=new KVModelInserter(defaultClient,BlogKeyWord.class);
             modelInserter.row(blogKeyWord);
-            modelInserter.insert();
-            return true;
+            try {
+                modelInserter.insert();
+                return true;
+            }catch (Exception e){
+                log.error(e.getMessage(),e);
+                return false;
+            }
         });
 
         if(StringUtils.isNullOrEmpty(query))

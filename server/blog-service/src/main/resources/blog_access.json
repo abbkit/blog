@@ -46,14 +46,6 @@
       "length": 0
     },
     {
-      "columnName": "cf:lemonRowTime",
-      "type": "date",
-      "schema": "cold",
-      "tableName": "blog_access",
-      "desc": "lemon row time",
-      "length": 20
-    },
-    {
       "columnName": "cf:track",
       "type": "string",
       "schema": "cold",

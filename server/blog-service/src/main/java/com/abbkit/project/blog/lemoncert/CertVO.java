@@ -1,6 +1,6 @@
 package com.abbkit.project.blog.lemoncert;
 
-import com.abbkit.kernel.model.Model;
+import com.abbkit.project.model.Model;
 import lombok.Data;
 
 /**

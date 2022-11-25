@@ -4,8 +4,8 @@ abbkit:
       master: lemon.abbkit.com:10088
       worker: lemon.abbkit.com:8000
     proxy:
-      host: lemon.abbkit.com
-      port: 8000
+      host: 127.0.0.1
+      port: 10091
   client:
     thread:
       name: 'Async Client'

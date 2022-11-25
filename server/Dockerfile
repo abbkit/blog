@@ -21,5 +21,5 @@ RUN sh -c 'touch /abbkit.jar'
 ENV JAVA_OPTS="-Xms128m -Xmx256m -XX:+UseConcMarkSweepGC -XX:ReservedCodeCacheSize=32m -XX:CompressedClassSpaceSize=32m -XX:MetaspaceSize=32m -XX:MaxMetaspaceSize=128m  -Dfile.encoding=utf-8"
 # -cp 在jar作为启动时候是不起作用的，使用的是Main-Class of MANIFEST.MF
 # springboot-> Main-Class: org.springframework.boot.loader.JarLauncher
-#               -> Start-Class: com.abbkit.Application
+#               -> Start-Class: com.abbkit.project.Application
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dloader.path=/var/lib/abbkit/config/ -Dspring.config.location=/var/lib/abbkit/config/ -jar /abbkit.jar" ]

@@ -1,4 +1,4 @@
-package com.abbkit.module.xsearch.file;
+package com.abbkit.project.module.xsearch.file;
 
 import org.apache.lucene.document.*;
 

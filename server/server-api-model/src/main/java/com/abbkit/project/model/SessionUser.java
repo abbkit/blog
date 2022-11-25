@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abbkit.kernel.model;
+package com.abbkit.project.model;
 
 import java.util.Map;
 

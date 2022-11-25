@@ -3,7 +3,7 @@ package com.abbkit.project.blog.monitor;
 import cn.hutool.http.useragent.Browser;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
-import com.abbkit.kernel.model.ResponseModel;
+import com.abbkit.project.model.ResponseModel;
 import com.abbkit.kernel.util.StringUtils;
 import com.abbkit.lemon.client.DefaultClient;
 import com.abbkit.lemon.client.DefaultClients;
@@ -94,9 +94,7 @@ public class BlogNodeController {
     public ResponseModel track(@RequestParam("url") String url, HttpServletRequest request) throws Exception {
         String unique = request.getHeader(BlogCons.HEADER_BLOG_UNIQUE);
         if (StringUtils.isNullOrEmpty(url)) return ResponseModel.newSuccess(true);
-
         blogTrackerService.track(unique, url);
-
         return ResponseModel.newSuccess(true);
     }
 

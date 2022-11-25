@@ -1,8 +1,8 @@
 package com.abbkit.project.blog.util;
 
-import com.abbkit.kernel.model.DefaultPageImpl;
-import com.abbkit.kernel.model.Page;
-import com.abbkit.kernel.model.Pageable;
+import com.abbkit.project.model.DefaultPageImpl;
+import com.abbkit.project.model.Page;
+import com.abbkit.project.model.Pageable;
 
 abstract public class PageUtil {
 

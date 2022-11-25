@@ -1,6 +1,6 @@
-package com.abbkit.module.xsearch.file;
+package com.abbkit.project.module.xsearch.file;
 
-import com.abbkit.module.xsearch.BaseDoc;
+import com.abbkit.project.module.xsearch.BaseDoc;
 import lombok.Data;
 
 import java.util.Map;

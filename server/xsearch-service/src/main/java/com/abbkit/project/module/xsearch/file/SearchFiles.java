@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.abbkit.module.xsearch.file;
+package com.abbkit.project.module.xsearch.file;
 
 
-import com.abbkit.module.xsearch.Search;
+import com.abbkit.project.module.xsearch.Search;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
