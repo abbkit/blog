@@ -27,6 +27,7 @@
         <module>server-starter</module>
         <module>server-api-model</module>
         <module>xsearch-service</module>
+        <module>server-config</module>
     </modules>
 
 

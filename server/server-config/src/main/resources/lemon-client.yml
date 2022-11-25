@@ -1,0 +1,14 @@
+abbkit:
+  lemon:
+    server :
+      master: lemon.abbkit.com:10088
+      worker: lemon.abbkit.com:8000
+    proxy:
+      host: 127.0.0.1
+      port: -1
+  client:
+    thread:
+      name: 'Async Client'
+      alive-count: 3
+      max-count: 9
+      alive-time: 3600 # seconds
