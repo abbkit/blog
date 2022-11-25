@@ -5,7 +5,7 @@
   "tableMeta": {
     "schema": "cold",
     "tableName": "blog_keyword",
-    "desc": "some keyword for searching in the blog site",
+    "desc": "keyword search",
     "owner": "J",
     "sync": "N",
     "limitCount": -1,
@@ -21,7 +21,16 @@
   },
   "columnMetas": [
     {
-      "columnName": "lemonRowTime",
+      "columnName": "cf:seq",
+      "type": "string",
+      "schema": "cold",
+      "tableName": "blog_keyword",
+      "desc": "唯一序号",
+      "length": 255,
+      "primary": 1
+    },
+    {
+      "columnName": "cf:lemonRowTime",
       "type": "date",
       "schema": "cold",
       "tableName": "blog_keyword",
@@ -29,7 +38,7 @@
       "length": 20
     },
     {
-      "columnName": "switch",
+      "columnName": "cf:switch",
       "type": "boolean",
       "schema": "cold",
       "tableName": "blog_keyword",

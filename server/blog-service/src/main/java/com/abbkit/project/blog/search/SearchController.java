@@ -69,7 +69,7 @@ public class SearchController {
         }
 
         BlogKeyWord blogKeyWord=new BlogKeyWord();
-        blogKeyWord.setLemonRowKey(query);
+        blogKeyWord.setSeq(query);
         blogKeyWord.setSwitchKeyword(true);
 
         asyncTaskExecutor.submit(()->{

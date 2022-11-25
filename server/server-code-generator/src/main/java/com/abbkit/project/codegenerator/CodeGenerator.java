@@ -41,7 +41,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 
-        DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:mysql://mysql.ainobug.com:50002/dataio?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true"
+        DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:mysql://mysql.ainobug.com:50002/lemon?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true"
                 , "lemon", "cslg@05126585")
                 .dbQuery(new MySqlQuery())
                 .schema("dataio")

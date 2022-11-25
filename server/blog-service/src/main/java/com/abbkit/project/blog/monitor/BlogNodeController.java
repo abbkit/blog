@@ -52,29 +52,21 @@ public class BlogNodeController {
         if (StringUtils.isNullOrEmpty(unique)) return ResponseModel.newSuccess(true);
 
         BlogNode blogNode = new BlogNode();
-        blogNode.setLemonRowKey(unique);
-
+        blogNode.setSeq(unique);
         String userAgentStr = request.getHeader("User-Agent");
         UserAgent userAgent = UserAgentUtil.parse(userAgentStr);
         Browser browser = userAgent.getBrowser();
         blogNode.setBrowser(browser.toString());
-
         blogNode.setUserAgent(userAgentStr);
-
         String sourceIp = request.getHeader("X-Forward-For");
         if (StringUtils.isNullOrEmpty(sourceIp)) {
             sourceIp = request.getHeader("x-forward-for");
         }
         blogNode.setIp(sourceIp);
-
         blogNode.setAccessTime(System.currentTimeMillis());
-
-        blogNode.setLemonRowKey(unique);
-
         KVModelInserter modelInserter = new KVModelInserter(defaultClient, BlogNode.class);
         modelInserter.row(blogNode);
         modelInserter.insert();
-
         return ResponseModel.newSuccess(true);
 
     }

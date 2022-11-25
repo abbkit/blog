@@ -24,8 +24,7 @@ public class BlogTrackerService {
         if(StringUtils.isNullOrEmpty(unique))  unique="default";
 
         BlogAccess blogAccess=new BlogAccess();
-        blogAccess.setLemonRowKey(unique+"-"+ TimeSequenceUtil.revertSequence());
-
+        blogAccess.setSeq(unique+"-"+ TimeSequenceUtil.revertSequence());
         blogAccess.setAccessTime(System.currentTimeMillis());
         blogAccess.setTrack(track);
 

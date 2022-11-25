@@ -1,9 +1,9 @@
 package com.abbkit.project.blog.monitor;
 
-import com.abbkit.lemon.client.kv.KVBaseModel;
-import com.abbkit.lemon.data.TypeString;
 import com.abbkit.lemon.data.annotation.Column;
 import com.abbkit.lemon.data.annotation.Table;
+import com.abbkit.lemon.data.type.TypeDef;
+import com.abbkit.lemon.server.model.KVBaseModel;
 import lombok.Data;
 
 /**
@@ -13,10 +13,13 @@ import lombok.Data;
 @Table( schema ="hot", name = "blog_node")
 public class BlogNode extends KVBaseModel {
 
+    @Column(name = "seq")
+    private String seq;
+
     @Column(name = "ip")
     private String ip;
 
-    @Column(name = "accessTime",type = TypeString.DATE)
+    @Column(name = "accessTime",type = TypeDef.DATE)
     private long accessTime;
 
     @Column(name = "browser")
@@ -25,7 +28,7 @@ public class BlogNode extends KVBaseModel {
     @Column(name = "userAgent")
     private String userAgent;
 
-    @Column(name = "holdTime",type = TypeString.INT)
+    @Column(name = "holdTime",type = TypeDef.INT)
     private int holdTime;
 
 }

@@ -2,7 +2,7 @@ version: "3"
 
 services:
   abbkit:  # https://hub.docker.com/_/mysql
-    image: abbkit:0.0.1
+    image: abbkit:latest
     container_name: abbkit
     hostname: abbkit
     environment:

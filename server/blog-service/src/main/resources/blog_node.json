@@ -21,7 +21,16 @@
   },
   "columnMetas": [
     {
-      "columnName": "accessTime",
+      "columnName": "cf:seq",
+      "type": "string",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "唯一序号",
+      "length": 255,
+      "primary": 1
+    },
+    {
+      "columnName": "cf:accessTime",
       "type": "date",
       "schema": "hot",
       "tableName": "blog_node",
@@ -29,7 +38,7 @@
       "length": 0
     },
     {
-      "columnName": "browser",
+      "columnName": "cf:browser",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",
@@ -37,7 +46,7 @@
       "length": 255
     },
     {
-      "columnName": "holdTime",
+      "columnName": "cf:holdTime",
       "type": "int",
       "schema": "hot",
       "tableName": "blog_node",
@@ -45,7 +54,7 @@
       "length": 0
     },
     {
-      "columnName": "ip",
+      "columnName": "cf:ip",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",
@@ -53,7 +62,7 @@
       "length": 255
     },
     {
-      "columnName": "lemonRowTime",
+      "columnName": "cf:lemonRowTime",
       "type": "date",
       "schema": "hot",
       "tableName": "blog_node",
@@ -61,7 +70,7 @@
       "length": 20
     },
     {
-      "columnName": "userAgent",
+      "columnName": "cf:userAgent",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",

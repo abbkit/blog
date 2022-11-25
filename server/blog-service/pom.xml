@@ -48,16 +48,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.abbkit.lemon</groupId>
-            <artifactId>abbkit-lemon-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.abbkit</groupId>
-            <artifactId>abbkit-cluster-boot</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.abbkit</groupId>
             <artifactId>server-api-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
@@ -67,6 +57,11 @@
             <artifactId>xsearch-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.abbkit</groupId>
+            <artifactId>lemon-client</artifactId>
         </dependency>
 
     </dependencies>

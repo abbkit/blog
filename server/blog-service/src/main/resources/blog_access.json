@@ -5,7 +5,7 @@
   "tableMeta": {
     "schema": "cold",
     "tableName": "blog_access",
-    "desc": "record all information accessing from WWW as more as possible",
+    "desc": "网站页面访问记录",
     "owner": "J",
     "sync": "Y",
     "limitCount": -1,
@@ -21,7 +21,16 @@
   },
   "columnMetas": [
     {
-      "columnName": "accessTime",
+      "columnName": "cf:seq",
+      "type": "string",
+      "schema": "cold",
+      "tableName": "blog_access",
+      "desc": "唯一序号",
+      "length": 255,
+      "primary": 1
+    },
+    {
+      "columnName": "cf:accessTime",
       "type": "date",
       "schema": "cold",
       "tableName": "blog_access",
@@ -29,15 +38,15 @@
       "length": 0
     },
     {
-      "columnName": "holdTime",
+      "columnName": "cf:holdTime",
       "type": "int",
       "schema": "cold",
       "tableName": "blog_access",
-      "desc": "how many time to hold",
+      "desc": "停留时间",
       "length": 0
     },
     {
-      "columnName": "lemonRowTime",
+      "columnName": "cf:lemonRowTime",
       "type": "date",
       "schema": "cold",
       "tableName": "blog_access",
@@ -45,7 +54,7 @@
       "length": 20
     },
     {
-      "columnName": "track",
+      "columnName": "cf:track",
       "type": "string",
       "schema": "cold",
       "tableName": "blog_access",
