@@ -9,5 +9,5 @@ public interface CertGenerate{
 
     String encrypt(String ak)throws Exception;
 
-    Cert decrypt(String finalCertString,String ak) throws Exception;
+    Cert decrypt(String finalCertString, String ak) throws Exception;
 }

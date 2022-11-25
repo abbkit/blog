@@ -64,6 +64,11 @@
             <artifactId>lemon-client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.abbkit</groupId>
+            <artifactId>lemon-cluster-lib</artifactId>
+        </dependency>
+
     </dependencies>
 
 
