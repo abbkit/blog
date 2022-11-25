@@ -106,9 +106,9 @@
                 ,
                 function(result){
 
-                  if(result.status=='SYS_ERROR'){
+                  if(result.code!=0){
                       $('#cert').html(result.data);
-                  }else if(result.status=='SUCCESS'){
+                  }else if(result.code==0){
                       $('#cert').html(result.data.cert);
                       $('#expired').html('过期时间：'+result.data.expired);
                   }else {

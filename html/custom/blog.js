@@ -337,7 +337,7 @@
     if(!getUnique()){
         var fingerprint = new Fingerprint().get();
         $.get($.blogConfig.apiUrl+"/access/unique?fingerprint="+fingerprint, function(result){
-            if(result.status=='SUCCESS'){
+            if(result.code==0){
                 setUnique(result.data);
             }
         },'json');
@@ -433,7 +433,7 @@
             }
 
             var fn=function (result) {
-                if(result.status=='SUCCESS'){
+                if(result.code==0){
                     success(result);
                 }else {
                     if(error) error(result);
