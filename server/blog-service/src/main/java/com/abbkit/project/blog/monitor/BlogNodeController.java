@@ -137,7 +137,7 @@ public class BlogNodeController {
     @GetMapping(path = "latest")
     public ResponseModel latest(HttpServletRequest request) throws Exception {
         DirectAndModel directAndModel = new DirectAndModel();
-        directAndModel.ge("seq",Long.MAX_VALUE-System.currentTimeMillis());
+        directAndModel.startRow(Long.MAX_VALUE-System.currentTimeMillis(),true);
         AndModel andModel = directAndModel.build();
         KVQueryModel kvQueryModel = new KVQueryModel();
         kvQueryModel.setCondition(andModel);
