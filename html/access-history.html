@@ -109,7 +109,7 @@
               var itemData=result.data[i];
               var itemDom='<a href="#" class="list-group-item list-group-item-action" >'
                   +'<div class="d-flex w-100 justify-content-between">'
-                  +'<h5 class="mb-1">'+itemData.lemonRowKey+'</h5>'
+                  +'<h5 class="mb-1">'+itemData.nodeSign+'</h5>'
                   +'<small>'+$.blogs.formatDate(itemData.accessTime)+'</small>'
                   +'</div>'
                   +'<p class="mb-1">'+itemData.userAgent+'</p>'
@@ -123,8 +123,8 @@
 
           $('#latestItemDiv a').on('click',function () {
              var node=$(this).data('node');
-              history(node.lemonRowKey);
-             $('#nodeInfo').html(node.lemonRowKey+" , "+node.browser);
+              history(node.nodeSign);
+             $('#nodeInfo').html(node.nodeSign+" , "+node.browser);
           });
 
 
