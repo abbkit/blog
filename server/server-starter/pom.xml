@@ -48,6 +48,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
+                    <!-- jvm启动时通过-Dloader.path加载包，必须指定layout为ZIP，否则-Dloader.path无效 -->
                     <layout>ZIP</layout>
                 </configuration>
             </plugin>
