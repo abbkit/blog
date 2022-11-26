@@ -154,8 +154,8 @@ public class BlogNodeController {
         directAndModel.startRow(Long.MAX_VALUE-System.currentTimeMillis(),true);
         AndModel andModel = directAndModel.build();
 
-        KVModelSelector<BlogAccess> kvModelSelector=new KVModelSelector<>(defaultClient, BlogAccess.class);
-        List<BlogAccess> blogAccessList = kvModelSelector.select(andModel);
+        KVModelSelector<BlogNode> kvModelSelector=new KVModelSelector<>(defaultClient, BlogNode.class);
+        List<BlogNode> blogAccessList = kvModelSelector.select(andModel);
         return ResponseModel.newSuccess(blogAccessList);
     }
 
