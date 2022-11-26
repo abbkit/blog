@@ -5,7 +5,7 @@ abbkit:
       worker: lemon.abbkit.com:8000
     proxy:
       host: 127.0.0.1
-      port: 10091
+      port: -1
   client:
     thread:
       name: 'Async Client'
