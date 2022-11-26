@@ -22,12 +22,20 @@
   "columnMetas": [
     {
       "columnName": "seq",
+      "type": "long",
+      "schema": "hot",
+      "tableName": "blog_node",
+      "desc": "唯一序号,时间维度",
+      "length": 0,
+      "primary": 1
+    },
+    {
+      "columnName": "nodeSign",
       "type": "string",
       "schema": "hot",
       "tableName": "blog_node",
-      "desc": "唯一序号",
-      "length": 255,
-      "primary": 1
+      "desc": "节点唯一标识",
+      "length": 255
     },
     {
       "columnName": "accessTime",

@@ -15,7 +15,10 @@ import lombok.Data;
 public class BlogNode extends KVBaseModel {
 
     @Column(name = "seq")
-    private String seq;
+    private long seq;
+
+    @Column(name = "nodeSign")
+    private String nodeSign;
 
     @Column(name = "ip")
     private String ip;

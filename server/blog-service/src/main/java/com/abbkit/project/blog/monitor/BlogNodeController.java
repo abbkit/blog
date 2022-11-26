@@ -3,7 +3,6 @@ package com.abbkit.project.blog.monitor;
 import cn.hutool.http.useragent.Browser;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
-import com.abbkit.project.model.ResponseModel;
 import com.abbkit.kernel.util.StringUtils;
 import com.abbkit.lemon.client.DefaultClient;
 import com.abbkit.lemon.client.DefaultClients;
@@ -18,6 +17,7 @@ import com.abbkit.lemon.data.put.Row;
 import com.abbkit.lemon.data.query.AndModel;
 import com.abbkit.lemon.data.query.DirectAndModel;
 import com.abbkit.project.blog.BlogCons;
+import com.abbkit.project.model.ResponseModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,9 +50,9 @@ public class BlogNodeController {
         String unique = request.getHeader(BlogCons.HEADER_BLOG_UNIQUE);
 
         if (StringUtils.isNullOrEmpty(unique)) return ResponseModel.newSuccess(true);
-
         BlogNode blogNode = new BlogNode();
-        blogNode.setSeq(unique);
+        blogNode.setSeq(Long.MAX_VALUE-System.currentTimeMillis());
+        blogNode.setNodeSign(unique);
         String userAgentStr = request.getHeader("User-Agent");
         UserAgent userAgent = UserAgentUtil.parse(userAgentStr);
         Browser browser = userAgent.getBrowser();
@@ -136,24 +136,9 @@ public class BlogNodeController {
     @ResponseBody
     @GetMapping(path = "latest")
     public ResponseModel latest(HttpServletRequest request) throws Exception {
-        List<BlogNode> blogNodes = latest();
-
-        Collections.sort(blogNodes, new Comparator<BlogNode>() {
-            @Override
-            public int compare(BlogNode o1, BlogNode o2) {
-                return Long.valueOf(o2.getAccessTime()).compareTo(o1.getAccessTime());
-            }
-        });
-        int max = blogNodes.size() > 30 ? 30 : blogNodes.size();
-        return ResponseModel.newSuccess(blogNodes.subList(0, max));
-    }
-
-
-    private List<BlogNode> latest() {
-
         DirectAndModel directAndModel = new DirectAndModel();
+        directAndModel.ge("seq",Long.MAX_VALUE-System.currentTimeMillis());
         AndModel andModel = directAndModel.build();
-
         KVQueryModel kvQueryModel = new KVQueryModel();
         kvQueryModel.setCondition(andModel);
         kvQueryModel.setOpe(ProtocolCons.SELECT);
@@ -173,9 +158,16 @@ public class BlogNodeController {
             blogNodes.add(blogNode);
         }
 
-        return blogNodes;
-
+        Collections.sort(blogNodes, new Comparator<BlogNode>() {
+            @Override
+            public int compare(BlogNode o1, BlogNode o2) {
+                return Long.valueOf(o2.getAccessTime()).compareTo(o1.getAccessTime());
+            }
+        });
+        int max = blogNodes.size() > 30 ? 30 : blogNodes.size();
+        return ResponseModel.newSuccess(blogNodes.subList(0, max));
     }
+
 }
 
 
