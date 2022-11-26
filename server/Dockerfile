@@ -22,4 +22,5 @@ ENV JAVA_OPTS="-Xms128m -Xmx256m -XX:+UseConcMarkSweepGC -XX:ReservedCodeCacheSi
 # -cp 在jar作为启动时候是不起作用的，使用的是Main-Class of MANIFEST.MF
 # springboot-> Main-Class: org.springframework.boot.loader.JarLauncher
 #               -> Start-Class: com.abbkit.project.Application
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dloader.path=/var/lib/abbkit/config -Dspring.config.location=/var/lib/abbkit/config/ -Dlogging.level.root=DEBUG -jar /abbkit.jar" ]
+# -Dlogging.level.root=DEBUG 启动日志参数
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dloader.path=/var/lib/abbkit/config -Dspring.config.location=/var/lib/abbkit/config/  -jar /abbkit.jar" ]
