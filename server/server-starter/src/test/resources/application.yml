@@ -5,6 +5,8 @@ server:
     context-path: /
   tomcat:
     uri-encoding: UTF-8
+logging:
+  level: DEBUG
 
 
 spring:
