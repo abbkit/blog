@@ -14,7 +14,7 @@ import lombok.Data;
 @Table( schema ="hot", name = "blog_node" ,engine = ProtocolCons.ENGINE_MYSQL)
 public class BlogNode extends KVBaseModel {
 
-    @Column(name = "seq",primary = true)
+    @Column(name = "seq",primary = true,type = TypeDef.LONG)
     private long seq;
 
     @Column(name = "nodeSign")
