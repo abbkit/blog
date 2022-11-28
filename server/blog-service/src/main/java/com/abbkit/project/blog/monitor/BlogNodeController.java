@@ -8,9 +8,9 @@ import com.abbkit.kernel.util.StringUtils;
 import com.abbkit.lemon.client.DefaultClient;
 import com.abbkit.lemon.client.DefaultClients;
 import com.abbkit.lemon.client.kv.insert.KVModelInserter;
-import com.abbkit.lemon.client.kv.query.KVModelSelector;
+import com.abbkit.lemon.client.kv.select.KVModelSelector;
 import com.abbkit.lemon.data.query.AndModel;
-import com.abbkit.lemon.data.query.DirectAndModel;
+import com.abbkit.lemon.data.query.AndModelBuilder;
 import com.abbkit.project.blog.BlogCons;
 import com.abbkit.project.model.ResponseModel;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class BlogNodeController {
 
         if (StringUtils.isNullOrEmpty(unique)) return ResponseModel.newSuccess(true);
         //检查客户端是否已经记录
-        DirectAndModel directAndModel = new DirectAndModel();
+        AndModelBuilder directAndModel = new AndModelBuilder();
         directAndModel.eq("nodeSign",unique);
         AndModel andModel = directAndModel.build();
         KVModelSelector<BlogNode> kvModelSelector=new KVModelSelector<>(defaultClient, BlogNode.class);
@@ -128,7 +128,7 @@ public class BlogNodeController {
     @GetMapping(path = "history")
     public ResponseModel history(HttpServletRequest request, @RequestParam("node") String node) throws Exception {
 
-        DirectAndModel directAndModel = new DirectAndModel();
+        AndModelBuilder directAndModel = new AndModelBuilder();
         AndModel andModel = directAndModel
                 .startRow(node, true)
                 .endRow(node + "|", false)
@@ -150,7 +150,7 @@ public class BlogNodeController {
     @ResponseBody
     @GetMapping(path = "latest")
     public ResponseModel latest(HttpServletRequest request) throws Exception {
-        DirectAndModel directAndModel = new DirectAndModel();
+        AndModelBuilder directAndModel = new AndModelBuilder();
         directAndModel.startRow(Long.MAX_VALUE-System.currentTimeMillis(),true);
         AndModel andModel = directAndModel.build();
 
