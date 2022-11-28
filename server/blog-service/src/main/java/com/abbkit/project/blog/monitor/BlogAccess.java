@@ -13,7 +13,7 @@ import lombok.Data;
 @Table( name = "blog_access")
 public class BlogAccess extends HBaseBaseModel {
 
-    @Column(name = "cf:seq")
+    @Column(name = "cf:seq",primary = true)
     private String seq;
 
     @Column(name = "cf:track")

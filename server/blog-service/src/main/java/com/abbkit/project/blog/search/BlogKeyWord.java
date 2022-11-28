@@ -13,7 +13,7 @@ import lombok.Data;
 @Table(name = "blog_keyword")
 public class BlogKeyWord extends HBaseBaseModel {
 
-    @Column(name = "cf:seq")
+    @Column(name = "cf:seq",primary = true)
     private String seq;
 
     @Column(name = "cf:switch",type = TypeDef.BOOLEAN)
