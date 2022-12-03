@@ -18,6 +18,6 @@ docker-compose -f abbkit-compose.yml up -d
 echo "copy html page..."
 cd ..
 pwd
-rm -rf /work/sourcecode/blog/html/*
+rm -rf /data/docker/abbkit/blog/*
 cp -rf html/* /work/sourcecode/blog/html
 echo "started ok!"
