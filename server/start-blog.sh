@@ -19,5 +19,5 @@ echo "copy html page..."
 cd ..
 pwd
 rm -rf /data/docker/abbkit/blog/*
-cp -rf html/* /work/sourcecode/blog/html
+cp -rf html/* /data/docker/abbkit/blog/
 echo "started ok!"
