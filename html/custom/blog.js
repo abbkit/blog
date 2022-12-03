@@ -532,14 +532,14 @@ $(function () {
 
 
     function blog_loadHeader(activeItem) {
-        // var tpl=getTemplate();
-        // if(tpl){
-        //     renderHeader(activeItem,tpl);
-        // }else {
+        var tpl=getTemplate();
+        if(tpl){
+            renderHeader(activeItem,tpl);
+        }else {
             $.get("template.html", function(result){
                 renderHeader(activeItem,result);
             },'html');
-        // }
+        }
     }
 
     if($('blogHeader').length>0){
