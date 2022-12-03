@@ -536,7 +536,7 @@ $(function () {
         if(tpl){
             renderHeader(activeItem,tpl);
         }else {
-            $.get("template.html", function(result){
+            $.get("template.html?"+(new Date().getTime()), function(result){
                 renderHeader(activeItem,result);
             },'html');
         }
@@ -559,7 +559,7 @@ $(function () {
         if(tpl){
             renderFooter(tpl);
         }else {
-            $.get("template.html", function(result){
+            $.get("template.html?"+(new Date().getTime()), function(result){
                 renderFooter(result);
             },'html');
         }
