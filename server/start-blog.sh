@@ -14,3 +14,10 @@ docker rm abbkit
 mvn clean install -Dmaven.test.skip=true
 docker build --network=abbkit -t abbkit:latest .
 docker-compose -f abbkit-compose.yml up -d
+
+echo "copy html page..."
+cd ..
+pwd
+rm -rf /work/sourcecode/blog/html/*
+cp -rf html/* /work/sourcecode/blog/html
+echo "started ok!"
