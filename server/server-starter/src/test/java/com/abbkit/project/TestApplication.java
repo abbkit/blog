@@ -1,6 +1,5 @@
-package test.com.abbkit.project;
+package com.abbkit.project;
 
-import com.abbkit.project.Application;
 import org.springframework.boot.SpringApplication;
 
 public class TestApplication {

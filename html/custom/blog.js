@@ -523,20 +523,23 @@ $(function () {
         var $nav=$template.find('nav');
         $nav.find('li[name="'+activeItem+'"]').addClass('active');
         $('blogHeader').append($nav);
+        // $('blogHeader').find('[name="searchIcon" ]').on('click',function(){
+        //     window.location.href="/search-list.html?query=";
+        // });
         // $('blogHeader').css('min-height',$('blogHeader').find('nav').outerHeight())
         // $('blogHeader').css('display','inline-block');
     }
 
 
     function blog_loadHeader(activeItem) {
-        var tpl=getTemplate();
-        if(tpl){
-            renderHeader(activeItem,tpl);
-        }else {
+        // var tpl=getTemplate();
+        // if(tpl){
+        //     renderHeader(activeItem,tpl);
+        // }else {
             $.get("template.html", function(result){
                 renderHeader(activeItem,result);
             },'html');
-        }
+        // }
     }
 
     if($('blogHeader').length>0){

@@ -53,7 +53,7 @@ spring:
       stat-view-servlet:  # 查看druid监控页面 http://localhost:8570/druid/index.html
         enabled: true
   redis:
-    host: 127.0.0.1
+    host: redis.abbkit.com
     port: 16379
     password: jin@6585
     database: 1

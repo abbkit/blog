@@ -1,142 +1,109 @@
 
+blogHeader{
+    font-size: medium;
+}
+
+
 .index-main{
     max-width: none !important;
     padding: 0 0 1rem 0 !important;
 }
+/*
+index 图片展示区
+*/
+.img-group{
 
-.index-broadcast{
-    height: 60px;
-    line-height: 45px;
 }
+.img-container{
 
-.index-broadcast a{
-    color: #1b1e21;
-    font-weight: 700 !important;
-    font-size: 1.5rem;
-}
-
-.index-broadcast ul li{
-    padding-right: 60px;
-}
-
-
-.container-search{
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-between;
-    height: 20rem;
     width: 100%;
-    padding: .25rem;
-    border: 1px solid gray
-}
-
-.showing-area > div{
-    padding: 5% 0 ;
+    height: 50vw;
+    overflow: hidden;
     
 }
 
-.showing-area{
-
-    background-image: url(/img/index-showing.jpg);
-    min-height: calc(100vh - 90px - 120px);
-    background-repeat: no-repeat;
-    background-size: cover;    
-}
-
-.showing-area-content{
-    vertical-align: middle;
-}
-
-.input-search{
-    border-radius: 10rem;
-    background: #fff;
-    box-shadow: 0 0 1rem rgba(0,0,0,0.15);
-    padding: 0.1rem;
-}
-
-.input-search input{
-    width: 100%; 
+.img-container .img-item{
+    background-size: cover;
+    background-repeat: round;
+    width: 100vw;
     height: 100%;
-    border: 0;
 }
 
-.input-search input:focus{
-    outline: 0;
+
+.img-container .img-item.first{
+    background-image: url("./../img/index-showing_0.png");
+}
+/*
+    index 中间代码链接区
+*/
+.text-code-group{
+    width: 100%;
+    padding-top: 45px;
 }
 
-.input-search button{
-    background: #4E66F8;
-    color: #ffffff;
-    border-radius: 10rem;
-    border-color: #1131f6;
+.text-code-group .code-link{
+    display: inline-block;
     width: 100%;
 }
+.text-code-group .code-key{
+    width: 200px;
+    overflow: hidden;
+    display: inline-block;
+    text-align: right;
+}
+.text-code-group .code-value{
+    width: 400px;
+    display: inline-block;
+    text-align:left;
+    overflow: hidden; 
+}
+.text-code-group a{
+    color: #1b1e21;
+}
 
-.showing-area p{
-    color: #ffffff;
-    font-size: 1.5rem;
-    line-height: 5rem;
+/*
+index 网站链接区
+*/
+.record-group{
+    padding: 30px 30px 0px 30px ;
+}
+
+/*
+index 终端适配区
+*/
+@media (min-width: 1200px) {
+    .img-container{
+        height: 30vw;
+    }
+    .record-group .card-columns{
+        width: 60vw;
+        margin: 0 auto;
+    }
+
+}
+
+@media (min-width: 768px) {
+
 }
 
 @media (max-width: 768px) {
-    .input-search {
-        padding: 1rem 0rem;
-        border-radius: 2rem;
-    }
-    .input-search > div:first-child{
-        margin: 1rem 0;
-        line-height: 3rem;
+    .img-container{
+        height: 50vw;
     }
 
-    .input-search input{
-
-        border-bottom: .1rem inset #e9ecef;
-
+    .text-code-group .code-key{
+        display: none;
+    }
+    .text-code-group .code-value{
+        width: auto;
     }
 
-    .index .blog-main{
-        margin-top: -.3rem !important; 
+    .record-group{
+        padding: 30px 10px 0px 10px ;
     }
 
 }
 
-@media (max-width: 576px) {
-    
-    .showing-area{
-        background-image: linear-gradient( to bottom, rgb(6 79 158),#ffffff );
-        /* background-image: unset; */
-        min-height: calc(100vh - 90px - 320px);
-    }
-
-    blogHeader .blog-nav-custom{
-        background: rgba(6 79 158) !important;
-    }
-
-}
-
-
-.showing-list{
-
-    padding:.3rem 0 0 0 ;
-
-}
-
-.showing-list > .row{
-    margin: 0 0;
-}
-
-.showing-guide{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    padding: .5rem 1rem 3rem 1rem;
-    width: 100%;
-}
-
-.showing-guide > div{
-    width: 5rem;
-    
-}
 
 
 footer{
