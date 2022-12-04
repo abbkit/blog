@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
       <link rel="stylesheet" href="/custom/blog.css" >
       <link rel="stylesheet" href="/custom/blog-write.css" >
+      <link rel="stylesheet" href="/custom/lemon.css" >
     <title>对象存储 LEMON 柠檬存储 OSS文档 OSS手册 OSS帮助文档 OSS 对象存储文档  </title>
-  </head>
+</head>
   <body data-spy="scroll" data-target="#navbar-example3" data-offset="120" >
 
     <blogHeader data-item="lemon"></blogHeader>
@@ -39,7 +40,6 @@
                     <nav class="nav nav-pills flex-column">
                         <a class="nav-link ml-3 my-1" href="#item-2-1">分布式数据同步</a>
                         <a class="nav-link ml-3 my-1" href="#item-2-2">RDBMS数据库导入</a>
-                        <a class="nav-link ml-3 my-1" href="#item-2-3">MR整合</a>
                     </nav>
                     <a class="nav-link" href="#item-3">Streaming</a>
                     <nav class="nav nav-pills flex-column">
@@ -113,17 +113,15 @@
 网络协议：TCP/HTTP
 </h5>
 </pre>
-                  <table class="table table-bordered" >
+                  <table class="table table-bordered kv-model-table" >
                     <thead class="table-dark">
                     <tr><td>参数</td><td>备注</td><td>值</td><td>值备注</td></tr>
                     </thead>
                     <tbody>
-
-                      <tr style="">
-                          <td>ope</td><td>操作类型</td><td></td><td></td>
-                      </tr>
                       <tr>
-                          <td rowspan="3">table</td><td rowspan="3">操作表的名称</td><td>insert</td><td>插入</td>
+                          <td rowspan="4">ope</td>
+                          <td rowspan="4">操作类型</td>
+                          <td>insert</td><td>插入</td>
                       </tr>
                       <tr>
                           <td>update</td><td>更新</td>
@@ -132,8 +130,17 @@
                           <td>delete_row</td><td>删除</td>
                       </tr>
                       <tr>
+                        <td>select</td><td>查询</td>
+                      </tr>
+                      <tr>
                           <td>cert</td><td>操作凭证</td><td></td><td></td>
                       </tr>
+                      <tr>
+                        <td>schema</td><td>表schema</td><td></td><td></td>
+                    </tr>
+                    <tr>
+                        <td>table</td><td>表名称</td><td></td><td></td>
+                    </tr>
                       <tr>
                           <td rowspan="8">condition</td><td rowspan="8">操作条件</td><td>and</td><td>与</td>
                       </tr>
@@ -159,6 +166,15 @@
                           <td>lk</td><td>相似</td>
                       </tr>
                       <tr>
+                        <td rowspan="2">limit</td>
+                        <td rowspan="2">查询限定返回行数</td>
+                        <td>start</td><td>limit开始</td>
+                    </tr>
+                    <tr>
+                        <td>end</td><td>limit结束</td>
+                    </tr>
+
+                      <tr>
                           <td>result</td><td>返回的字段和字段类型</td><td></td><td></td>
                       </tr>
                       <tr>
@@ -174,7 +190,7 @@
                           <td>double</td><td>浮点型</td>
                       </tr>
                       <tr>
-                          <td>boolean</td><td>布尔型</td>
+                          <td>boolean</td><td>布尔型，值为int</td>
                       </tr>
                       <tr>
                           <td>date</td><td>日期类型，值为长整型（long）</td>
@@ -348,9 +364,6 @@
               </p>
               <p>参考同步任务JOB JSON <a href="/file/import-data-template.json" target="_blank">import-data-tempate.json</a></p>
             </P>
-
-            <h3 id="item-2-3">MR整合</h3>
-            <p class="blog-text-indent">基于MapReduce计算架构，可以高效处理HBase中的数据，通过在Lemon环境中整合MR，可以方便地管理基于HBase的MR应用。</p>
             <h1 id="item-3">Streaming</h1>
             <h3 id="item-3-1">架构</h3>
             <img src="/img/lemon-streaming-architecture.png" />
@@ -370,11 +383,6 @@
 
           </div>
 
-
-
-    
-    
-    
   </main>
 
     <blogFooter></blogFooter>
