@@ -25,7 +25,7 @@ spring:
       filters: "stat,mergeStat"
       driver-class-name: com.mysql.cj.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://mysql:3306/dataio?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://mysql:3306/abbkit?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: lemon
       password: cslg@05126585
       #配置初始化大小/最小/最大
@@ -51,7 +51,7 @@ spring:
         enabled: true
   redis:
     host: redis
-    port: 16379
+    port: 6379
     password: jin@6585
     database: 1
     lettuce:
