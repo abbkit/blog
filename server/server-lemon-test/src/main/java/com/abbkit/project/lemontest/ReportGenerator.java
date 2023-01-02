@@ -43,6 +43,7 @@ public class ReportGenerator {
             //allure generate -c dataDir -o reportDir
             log.info("==========allure generate开始执行==========");
             String command = cmd+" generate -c "+dataDir+" -o "+htmlDir;
+            log.info("执行命令:"+command);
             Process process = Runtime.getRuntime().exec(command);
             InputStream inputStream = process.getInputStream();
             log.info(StringUtils.utf8(IOUtils.getBytes(inputStream)));
