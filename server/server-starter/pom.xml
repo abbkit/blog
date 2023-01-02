@@ -24,6 +24,12 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.abbkit</groupId>
+            <artifactId>server-lemon-test</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--和yml配置文件绑定所需要的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

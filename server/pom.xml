@@ -19,7 +19,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <lemon.version>2.1.0-SNAPSHOT</lemon.version>
+        <lemon.version>2.2.3-SNAPSHOT</lemon.version>
     </properties>
 
     <modules>
@@ -28,6 +28,7 @@
         <module>server-api-model</module>
         <module>xsearch-service</module>
         <module>server-config</module>
+        <module>server-lemon-test</module>
     </modules>
 
 

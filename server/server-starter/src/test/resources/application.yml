@@ -83,4 +83,9 @@ abbkit:
     lemon:
       akFilePath: d:/ak
       authKey: '{"J": "J"}'  #@Value的注入只能写在一行 #{${property}}
+    lemonTest:
+      cmd: D:/allure-commandline-2.20.1/allure-2.20.1/bin/allure.bat
+      dataDir: D:/allure-data
+      htmlDir: D:/allure-report
+
 #--------------------------- blog service  end
