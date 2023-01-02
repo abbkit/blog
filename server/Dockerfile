@@ -14,7 +14,7 @@ EXPOSE 8080
 #   -> /data/docker/abbkit/:/var/lib/abbkit/
 VOLUME /var/lib/abbkit/
 # 将宿主目录中的文件拷贝到镜像中
-ADD allure-commandline-2.20.1.tar /allure-commandline-2.20.1
+ADD allure-commandline-2.20.1.tar /
 # ADD 不仅能复制宿主主机中的文件，还能是URL指向的文件。而且如果指向的文件是tar压缩包，在复制到容器后，会进行自动解压
 ADD /server-starter/target/abbkit.jar abbkit.jar
 RUN sh -c 'touch /abbkit.jar'
